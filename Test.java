@@ -1,6 +1,8 @@
 package Trucks;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 
 public class Test {
     public static void main(String[] args) {
@@ -30,36 +32,12 @@ public class Test {
             trucks[i].setSpeed(sc.nextInt());
         }
         
-//        for(Truck truck: trucks) {
-//            System.out.println(truck.toString());
-//        }
-        
-//        solution(maxLoad, bridgeLength, truckTotal, trucks);
+        solution(maxLoad, bridgeLength, trucks);
         
         sc.close();
-    }
+    }//Run
     
-//    public void solution(int maxLoad, int bridgeLength, int truckTotal, Truck[] trucks) {
-//        int bufferWeight = 0;
-//        int lastIndex = 0;
-//        ArrayList<Truck> batches = new ArrayList<Truck>();
-//        
-//        while(true) {
-//            if(bufferWeight < maxLoad) {
-//                if((bufferWeight += trucks[lastIndex].getWeight()) <= maxLoad) {
-//                    lastIndex++;
-//                }
-//            } else {
-//                batches.add(new Truck(bufferWeight, 0));
-//            }
-//            
-//            if(lastIndex == truckTotal-1) {
-//                break;
-//            }
-//        }
-//        
-//        for(int i = 0; i < batches.size(); i++) {
-//            System.out.println(batches.get(i).toString());
-//        }
-//    }//Solution
+    public void solution(int maxLoad, int bridgeLength, Truck[] trucks) {
+        
+    }//Solution
 }//Class
