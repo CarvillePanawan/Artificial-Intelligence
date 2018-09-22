@@ -1,2 +1,2 @@
 # Artificial-Intelligence
-Subjectively the best group haha
+Subjectively the best group ;)
