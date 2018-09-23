@@ -1,14 +1,12 @@
 public class State {
 	private int trucksPassed, batchSpeed, batchWeight;
 	private State parent;
-	private String description;
 	
-    public State(int trucksPassed, int batchSpeed, int batchWeight, State parent, String description) {
+    public State(int trucksPassed, int batchSpeed, int batchWeight, State parent) {
     	this.trucksPassed = trucksPassed;
     	this.batchSpeed = batchSpeed;
     	this.batchWeight = batchWeight;
     	this.parent = parent;
-    	this.description = description;
     }
     
 	public int getTrucksPassed() {
@@ -42,14 +40,5 @@ public class State {
 	public void setParent(State parent) {
 		this.parent = parent;
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
 	
 }
