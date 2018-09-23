@@ -1,31 +1,33 @@
 import java.util.ArrayList;
 
 public class State implements Comparable<State>{
-	private ArrayList<Truck> trucksLeft;
-	private int trucksPassed, pathTime, batchTime, batchWeight;
+	private ArrayList<Truck> vehiclesLeft;
+	private int vehiclesPassed, pathTime, batchTime, batchWeight;
 	private State parent;
 	
-    public State(int trucksPassed, int pathTime, int batchWeight, State parent) {
-    	this.trucksPassed = trucksPassed;
+    public State(ArrayList<Truck> vehiclesLeft, int vehiclesPassed, int pathTime, int batchTime, int batchWeight, State parent) {
+    	this.vehiclesLeft = vehiclesLeft;
+    	this.vehiclesPassed = vehiclesPassed;
     	this.pathTime = pathTime;
+    	this.batchTime = batchTime;
     	this.batchWeight = batchWeight;
     	this.parent = parent;
     }
     
-	public ArrayList<Truck> getTrucksLeft() {
-		return trucksLeft;
+	public ArrayList<Truck> getVehiclesLeft() {
+		return vehiclesLeft;
 	}
 
-	public void setTrucksLeft(ArrayList<Truck> trucksLeft) {
-		this.trucksLeft = trucksLeft;
+	public void setVehiclesLeft(ArrayList<Truck> trucksLeft) {
+		this.vehiclesLeft = trucksLeft;
 	}
     
-	public int getTrucksPassed() {
-		return trucksPassed;
+	public int getVehiclesPassed() {
+		return vehiclesPassed;
 	}
 
-	public void setTrucksPassed(int trucksPassed) {
-		this.trucksPassed = trucksPassed;
+	public void setVehiclesPassed(int trucksPassed) {
+		this.vehiclesPassed = trucksPassed;
 	}
 
 	public int getPathTime() {
