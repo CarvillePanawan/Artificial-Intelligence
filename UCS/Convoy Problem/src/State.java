@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class State implements Comparable<State>{
-	private ArrayList<Truck> vehiclesLeft;
-	private int vehiclesPassed, pathTime, batchTime, batchWeight;
+	private ArrayList<Truck> vehiclesLeft, vehiclesPassed;
+	private int pathTime, batchTime, batchWeight;
 	private State parent;
 	
-    public State(ArrayList<Truck> vehiclesLeft, int vehiclesPassed, int pathTime, int batchTime, int batchWeight, State parent) {
+    public State(ArrayList<Truck> vehiclesLeft, ArrayList<Truck> vehiclesPassed, int pathTime, int batchTime, int batchWeight, State parent) {
     	this.vehiclesLeft = vehiclesLeft;
     	this.vehiclesPassed = vehiclesPassed;
     	this.pathTime = pathTime;
@@ -22,11 +22,11 @@ public class State implements Comparable<State>{
 		this.vehiclesLeft = trucksLeft;
 	}
     
-	public int getVehiclesPassed() {
+	public ArrayList<Truck> getVehiclesPassed() {
 		return vehiclesPassed;
 	}
 
-	public void setVehiclesPassed(int trucksPassed) {
+	public void setVehiclesPassed(ArrayList<Truck> trucksPassed) {
 		this.vehiclesPassed = trucksPassed;
 	}
 
@@ -64,5 +64,39 @@ public class State implements Comparable<State>{
 	
     public int compareTo(State other) {
         return this.getBatchTime() - other.getBatchTime();
+    }
+    
+    public ArrayList<State> expand(int maxLoad, int bridgeLength){
+    	ArrayList<State> successorStates = new ArrayList<State>();
+    	for(int x = 0; x < this.vehiclesLeft.size() && weightChecker(x) <= maxLoad; x++) {
+        	State successor = this;
+        	int slowestSpeed = 0;
+        	int totalBatchWeight = 0;
+        	
+    		for(int y = 0; y <= x; y++) {
+    			successor.getVehiclesPassed().add(successor.getVehiclesLeft().get(0));
+    			totalBatchWeight += successor.getVehiclesLeft().get(0).getWeight();
+    			if (slowestSpeed < successor.getVehiclesLeft().get(0).getSpeed()) {
+    				slowestSpeed = successor.getVehiclesLeft().get(0).getSpeed();
+    			}
+    			successor.getVehiclesLeft().remove(0);
+    		}
+    		
+    		successor.setBatchTime((bridgeLength / slowestSpeed)*60);
+    		successor.setBatchWeight(totalBatchWeight);
+    		successor.setPathTime(this.getPathTime() + successor.getBatchTime());
+    		successor.setParent(this);
+    		
+    		successorStates.add(successor);
+    	}
+    	return successorStates;
+    }
+    
+    public int weightChecker(int limit) {
+    	int weight = 0;
+    	for(int x=0; x<=limit; x++) {
+    		weight += this.vehiclesLeft.get(x).getWeight();
+    	}
+    	return weight;
     }
 }

@@ -21,7 +21,7 @@ public class Convoy {
 			}
 			reader.close();
 			
-			State initialState = new State(vehicleList, 0, 0, 0, 0, null);
+			State initialState = new State(vehicleList, null, 0, 0, 0, null);
 		} catch(FileNotFoundException e) {
 			System.out.println("File not Found");
 		}
