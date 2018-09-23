@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+
 public class State {
+	private ArrayList<Truck> trucksLeft;
 	private int trucksPassed, pathTime, batchWeight;
 	private State parent;
 	
@@ -8,6 +11,14 @@ public class State {
     	this.batchWeight = batchWeight;
     	this.parent = parent;
     }
+    
+	public ArrayList<Truck> getTrucksLeft() {
+		return trucksLeft;
+	}
+
+	public void setTrucksLeft(ArrayList<Truck> trucksLeft) {
+		this.trucksLeft = trucksLeft;
+	}
     
 	public int getTrucksPassed() {
 		return trucksPassed;
