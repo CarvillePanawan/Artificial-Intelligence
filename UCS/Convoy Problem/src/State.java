@@ -1,10 +1,10 @@
 public class State {
-	private int trucksPassed, batchSpeed, batchWeight;
+	private int trucksPassed, pathTime, batchWeight;
 	private State parent;
 	
-    public State(int trucksPassed, int batchSpeed, int batchWeight, State parent) {
+    public State(int trucksPassed, int pathTime, int batchWeight, State parent) {
     	this.trucksPassed = trucksPassed;
-    	this.batchSpeed = batchSpeed;
+    	this.pathTime = pathTime;
     	this.batchWeight = batchWeight;
     	this.parent = parent;
     }
@@ -17,12 +17,12 @@ public class State {
 		this.trucksPassed = trucksPassed;
 	}
 
-	public int getBatchSpeed() {
-		return batchSpeed;
+	public int getPathTime() {
+		return pathTime;
 	}
 
-	public void setBatchSpeed(int batchSpeed) {
-		this.batchSpeed = batchSpeed;
+	public void setPathTime(int pathTime) {
+		this.pathTime = pathTime;
 	}
 
 	public int getBatchWeight() {
