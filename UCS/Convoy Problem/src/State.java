@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class State {
+public class State implements Comparable<State>{
 	private ArrayList<Truck> trucksLeft;
-	private int trucksPassed, pathTime, batchWeight;
+	private int trucksPassed, pathTime, batchSpeed, batchWeight;
 	private State parent;
 	
     public State(int trucksPassed, int pathTime, int batchWeight, State parent) {
@@ -35,6 +35,14 @@ public class State {
 	public void setPathTime(int pathTime) {
 		this.pathTime = pathTime;
 	}
+	
+	public int getBatchSpeed() {
+		return batchSpeed;
+	}
+
+	public void setBatchSpeed(int batchSpeed) {
+		this.batchSpeed = batchSpeed;
+	}
 
 	public int getBatchWeight() {
 		return batchWeight;
@@ -52,4 +60,7 @@ public class State {
 		this.parent = parent;
 	}
 	
+    public int compareTo(State other) {
+        return this.getBatchSpeed() - other.getBatchSpeed();
+    }
 }
