@@ -192,7 +192,6 @@ public class Convoy{
                         frontier.add(state);
                     }
                 }
-                sc.nextLine();
 
                 maxFrontierSize = Math.max(maxFrontierSize, frontier.size());
             }
