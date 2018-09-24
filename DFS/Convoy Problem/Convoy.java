@@ -70,7 +70,7 @@ class State{
     public ArrayList<State> expand(int bridgeLength, int maxLoad){
         ArrayList<State> successors = new ArrayList<State>();
         int tempBatchWeight = 0;
-        int tempBatchTime = 0;
+        int tempBatchSpeed = 0;
         double tempPathTime = 0.0;
         ArrayList<Truck> tempLeft = new ArrayList<Truck>(vehiclesLeft);
         ArrayList<Truck> tempPassed = new ArrayList<Truck>(vehiclesPassed);
@@ -78,11 +78,11 @@ class State{
         while (tempLeft.size() > 0 && (tempBatchWeight + tempLeft.get(0).getWeight()) <= maxLoad){
             tempPassed.add(tempLeft.get(0));
             tempBatchWeight += tempLeft.get(0).getWeight();
-            if(tempBatchTime > tempLeft.get(0).getSpeed() || tempBatchTime == 0){
-                tempBatchTime = tempLeft.get(0).getSpeed();
+            if(tempBatchSpeed > tempLeft.get(0).getSpeed() || tempBatchSpeed == 0){
+                tempBatchSpeed = tempLeft.get(0).getSpeed();
             }
             tempLeft.remove(0);
-            tempPathTime = ((double)bridgeLength / (double)tempBatchTime) * 60;
+            tempPathTime = ((double)bridgeLength / (double)tempBatchSpeed) * 60;
 
             if(tempLeft.size() > 0){
                 if((tempBatchWeight + tempLeft.get(0).getWeight()) <= maxLoad){
@@ -93,7 +93,7 @@ class State{
             } else {
                 tempPathTime = this.pathTime + tempPathTime;
             }
-            successors.add(new State(tempLeft, tempPassed, tempPathTime, tempBatchTime, tempBatchWeight, this));
+            successors.add(new State(tempLeft, tempPassed, tempPathTime, tempBatchSpeed, tempBatchWeight, this));
         } 
         return successors;
     }
@@ -209,7 +209,7 @@ public class Convoy{
             state = state.getParent();
         }
 
-        System.out.println("Solution:");
+        System.out.println("\n\n--------------------------------------------------------------------------------\nSolution:");
         for (State st : path) {
             System.out.println(st);
         }
