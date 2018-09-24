@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 class State{
     private ArrayList<Truck> vehiclesLeft, vehiclesPassed;
@@ -100,7 +101,7 @@ class State{
 
     @Override
     public String toString() {
-        return String.format("--------------------------------------------------------------------------------\n\nVehicles passed: %d \nVehicles left: %d \nBatch Weight: %d \nBatch Time: %2.1f \nTotal Path Time: %2.1f\n\n--------------------------------------------------------------------------------", vehiclesPassed.size(), vehiclesLeft.size(), batchWeight, batchTime, pathTime);
+        return String.format("--------------------------------------------------\n\nVehicles passed: %d \nVehicles left: %d \nBatch Weight: %d \nBatch Time: %2.1f \nTotal Path Time: %2.1f\n\n--------------------------------------------------", vehiclesPassed.size(), vehiclesLeft.size(), batchWeight, batchTime, pathTime);
     }
 }//end of Class State
 
@@ -153,17 +154,22 @@ class Truck{
 public class Convoy{
     public static void main(String[] args){
         ArrayList<Truck> vehicleList = new ArrayList<Truck>();
-        Scanner sc = new Scanner(System.in);
 
-        int maxLoad = Integer.parseInt(sc.next());
-        int bridgeLength = Integer.parseInt(sc.next());
-        int vehicleTotal = Integer.parseInt(sc.next());
+        File inputs = new File("input.txt");
 
-        for(int i = 0; i < vehicleTotal; i++){
-            vehicleList.add(new Truck(Integer.parseInt(sc.next()), Integer.parseInt(sc.next())));
-        }
+        try{
+            Scanner reader = new Scanner(inputs);
+            int maxLoad = Integer.parseInt(reader.next());
+            int bridgeLength = Integer.parseInt(reader.next());
+            int vehicleTotal = Integer.parseInt(reader.next());
 
-        State initialState = new State(vehicleList, new ArrayList<Truck>(), 0, 0, 0, null);
+            for(int i = 0; i < vehicleTotal; i++){
+                vehicleList.add(new Truck(Integer.parseInt(reader.next()), Integer.parseInt(reader.next())));
+            }
+
+            reader.close();
+
+            State initialState = new State(vehicleList, new ArrayList<Truck>(), 0, 0, 0, null);
 
         ArrayList<State> seen = new ArrayList<>();
 
@@ -181,7 +187,7 @@ public class Convoy{
             seen.add(currentState);
 
             if (currentState.isGoal(vehicleTotal)) {
-                showSolution(currentState, totalStatesVisited, maxFrontierSize);
+                showSolution(currentState, maxLoad, bridgeLength, vehicleTotal, currentState.getPathTime(), totalStatesVisited, maxFrontierSize);
                 return;
 
             } else {
@@ -198,10 +204,12 @@ public class Convoy{
         }
 
         System.out.println("No Solution.");
-
+        } catch(FileNotFoundException e) {
+			System.out.println("File not Found");
+        }
     }
 
-    public static void showSolution(State state, int totalStatesVisited, int maxFrontierSize) {
+    public static void showSolution(State state, int maxLoad, int bridgeLength, int totalVehicles, double pathTime, int totalStatesVisited, int maxFrontierSize) {
         ArrayList<State> path = new ArrayList<>();
 
         while (state != null) {
@@ -209,13 +217,18 @@ public class Convoy{
             state = state.getParent();
         }
 
-        System.out.println("\n\n--------------------------------------------------------------------------------\nSolution:");
+        System.out.println("\n\n--------------------------------------------------\nSolution");
         for (State st : path) {
             System.out.println(st);
         }
 
-        System.out.printf("\nTotal States Visited: %d\n", totalStatesVisited);
-        System.out.printf("Maximum Size of Frontier: %d\n", maxFrontierSize);
+        System.out.printf("\nMinimum Time Utilized: %.1f%n", pathTime);
+        System.out.println("Maximum Bridge Load: " + maxLoad);
+        System.out.println("Bridge Length: " + bridgeLength);
+		System.out.println("Number of Vehicles: " + totalVehicles);
+        System.out.printf("Total States Visited: %d\n", totalStatesVisited);
+        System.out.printf("Maximum Size of Frontier: %d\n\n", maxFrontierSize);
+        System.out.println("--------------------------------------------------");
     }
 
 }//end of Class Convoy
