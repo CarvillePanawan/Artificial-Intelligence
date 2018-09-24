@@ -101,7 +101,7 @@ class State{
 
     @Override
     public String toString() {
-        return String.format("--------------------------------------------------\n\nVehicles passed: %d \nVehicles left: %d \nBatch Weight: %d \nBatch Time: %2.1f \nTotal Path Time: %2.1f\n\n--------------------------------------------------", vehiclesPassed.size(), vehiclesLeft.size(), batchWeight, batchTime, pathTime);
+        return String.format("--------------------------------------------------\n\nVehicles passed: %d \nVehicles left: %d \nBatch Weight: %d \nBatch Time: %.1f \nTotal Path Time: %.1f\n\n--------------------------------------------------", vehiclesPassed.size(), vehiclesLeft.size(), batchWeight, batchTime, pathTime);
     }
 }//end of Class State
 
