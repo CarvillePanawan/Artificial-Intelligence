@@ -1,0 +1,98 @@
+100 5 10 
+40 25 
+50 20 
+50 20 
+70 10 
+12 50 
+9 70 
+49 30 
+38 25 
+27 50 
+19 70
+ 
+50 2 5
+25 10
+10 15
+10 9
+10 10
+25 25
+
+25 1 3
+15 6
+20 5
+25 1
+
+Number of Inputs: 10
+Total Time: 78.0
+Total States Visited: 5
+Maximum Size of Frontier: 30
+
+Number of Inputs: 20
+Total Time: 147.0
+Total States Visited: 9
+Maximum Size of Frontier: 102
+
+Number of Inputs: 30
+Total Time: 216.0
+Total States Visited: 13
+Maximum Size of Frontier: 214
+
+Number of Inputs: 40
+Total Time: 285.0
+Total States Visited: 17
+Maximum Size of Frontier: 366
+
+Number of Inputs: 50
+Total Time: 354.0
+Total States Visited: 21
+Maximum Size of Frontier: 558
+
+Number of Inputs: 60
+Total Time: 423.0
+Total States Visited: 25
+Maximum Size of Frontier: 790
+
+Number of Inputs: 70
+Total Time: 492.0
+Total States Visited: 29
+Maximum Size of Frontier: 1062
+
+Number of Inputs: 80
+Total Time: 547.5526315789474
+Total States Visited: 33
+Maximum Size of Frontier: 1362
+
+Number of Inputs: 90
+Total Time: 571.0
+Total States Visited: 36
+Maximum Size of Frontier: 1659
+
+Number of Inputs: 100
+Total Time: 640.0
+Total States Visited: 40
+Maximum Size of Frontier: 2039
+
+Number of Inputs: 110
+Total Time: 768.0
+Total States Visited: 45
+Maximum Size of Frontier: 2550
+
+Number of Inputs: 120
+Total Time: 832.5175438596492
+Total States Visited: 49
+Maximum Size of Frontier: 3018
+
+Number of Inputs: 130
+Total Time: 897.0350877192984
+Total States Visited: 53
+Maximum Size of Frontier: 3526
+
+Number of Inputs: 140
+Total Time: 961.5526315789476
+Total States Visited: 57
+Maximum Size of Frontier: 4074
+
+Number of Inputs: 150
+Total Time: 1026.0701754385968
+Total States Visited: 61
+Maximum Size of Frontier: 4662
