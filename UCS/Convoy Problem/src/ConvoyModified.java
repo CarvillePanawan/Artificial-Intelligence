@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class Convoy {
+public class ConvoyModified {
 	public static void main(String[] args) {
 		File inputs = new File("inputs.txt");
 		
@@ -24,12 +24,12 @@ public class Convoy {
 			State initialState = new State(vehicleList, new ArrayList<Truck>(), 0, 0, 0, null);
 			frontier.add(initialState);
 			int maxFrontierSize = 1;
+			ArrayList<State> goalStates = new ArrayList<State>();
 			
 			while (frontier.size() > 0){
 				State currentState = frontier.poll();
 				if(currentState.isGoal()) {
-					showSolution(currentState, maxLoad, bridgeLength, totalVehicles, maxFrontierSize);
-					break;
+					goalStates.add(currentState);
 				} else {
 					ArrayList<State> successorStates = currentState.expand(maxLoad, bridgeLength);
 					if(successorStates != null) {
@@ -38,6 +38,16 @@ public class Convoy {
 					}
 				}
 			}
+			
+			State solution = goalStates.get(0);
+			if (goalStates != null) {
+				for(int i = 0; i < goalStates.size(); i++) {
+					if(goalStates.get(i).getPathTime() <= solution.getPathTime()) {
+						solution = goalStates.get(i);
+					}
+				}
+			}
+			showSolution(solution, maxLoad, bridgeLength, totalVehicles, maxFrontierSize);
 		} catch(FileNotFoundException e) {
 			System.out.println("File not Found");
 		}
