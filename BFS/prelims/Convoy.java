@@ -1,5 +1,3 @@
-package prelims;
-
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -31,7 +29,7 @@ public class Convoy {
         System.out.println();
         
         solution(maxLoad, bridgeLength, totalVehicles, vehicles);
-//        tree(maxLoad, bridgeLength, totalVehicles, vehicles);
+        tree(maxLoad, bridgeLength, totalVehicles, vehicles);
         
         sc.close();
     }

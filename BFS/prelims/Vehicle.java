@@ -1,5 +1,3 @@
-package prelims;
-
 public class Vehicle {
     private int weight;
     private int speed;
