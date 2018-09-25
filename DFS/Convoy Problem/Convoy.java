@@ -4,14 +4,14 @@ import java.io.*;
 class State{
     private ArrayList<Truck> vehiclesLeft, vehiclesPassed;
 	private int batchWeight;
-    private double pathTime, batchTime;
+    private double pathTime, batchSpeed;
 	private State parent;
 	
-    public State(ArrayList<Truck> vehiclesLeft, ArrayList<Truck> vehiclesPassed, double pathTime, int batchTime, int batchWeight, State parent) {
+    public State(ArrayList<Truck> vehiclesLeft, ArrayList<Truck> vehiclesPassed, double pathTime, int batchSpeed, int batchWeight, State parent) {
     	this.vehiclesLeft = vehiclesLeft;
     	this.vehiclesPassed = vehiclesPassed;
     	this.pathTime = pathTime;
-    	this.batchTime = batchTime;
+    	this.batchSpeed = batchSpeed;
     	this.batchWeight = batchWeight;
     	this.parent = parent;
     }
@@ -40,12 +40,12 @@ class State{
 		this.pathTime = pathTime;
 	}
 	
-	public double getBatchTime() {
-		return batchTime;
+	public double getbatchSpeed() {
+		return batchSpeed;
 	}
 
-	public void setBatchTime(double batchTime) {
-		this.batchTime = batchTime;
+	public void setbatchSpeed(double batchSpeed) {
+		this.batchSpeed = batchSpeed;
 	}
 
 	public int getBatchWeight() {
@@ -86,9 +86,7 @@ class State{
             tempPathTime = ((double)bridgeLength / (double)tempBatchSpeed) * 60;
 
             if(tempLeft.size() > 0){
-                if((tempBatchWeight + tempLeft.get(0).getWeight()) <= maxLoad){
-                    
-                } else {
+                if(!((tempBatchWeight + tempLeft.get(0).getWeight()) <= maxLoad)){
                     tempPathTime = this.pathTime + tempPathTime;
                 }
             } else {
@@ -101,7 +99,7 @@ class State{
 
     @Override
     public String toString() {
-        return String.format("--------------------------------------------------\n\nVehicles passed: %d \nVehicles left: %d \nBatch Weight: %d \nBatch Time: %.1f \nTotal Path Time: %.1f\n\n--------------------------------------------------", vehiclesPassed.size(), vehiclesLeft.size(), batchWeight, batchTime, pathTime);
+        return String.format("--------------------------------------------------\n\nVehicles passed: %d \nVehicles left: %d \nBatch Weight: %d \nBatch Speed: %.1f \nTotal Path Time: %.1f\n\n--------------------------------------------------", vehiclesPassed.size(), vehiclesLeft.size(), batchWeight, batchSpeed, pathTime);
     }
 }//end of Class State
 
@@ -212,23 +210,22 @@ public class Convoy{
     public static void showSolution(State state, int maxLoad, int bridgeLength, int totalVehicles, double pathTime, int totalStatesVisited, int maxFrontierSize) {
         ArrayList<State> path = new ArrayList<>();
 
-        while (state != null) {
-            path.add(0, state);
-            state = state.getParent();
-        }
-
-        System.out.println("\n\n--------------------------------------------------\nSolution");
-        for (State st : path) {
-            System.out.println(st);
-        }
-
-        System.out.printf("\nMinimum Time Utilized: %.1f%n", pathTime);
+        System.out.println("\n--------------------------------------------------\nSolution\n--------------------------------------------------\n");
+        System.out.printf("Minimum Time Utilized: %.1f%n", pathTime);
         System.out.println("Maximum Bridge Load: " + maxLoad);
         System.out.println("Bridge Length: " + bridgeLength);
 		System.out.println("Number of Vehicles: " + totalVehicles);
         System.out.printf("Total States Visited: %d\n", totalStatesVisited);
         System.out.printf("Maximum Size of Frontier: %d\n\n", maxFrontierSize);
-        System.out.println("--------------------------------------------------");
+
+        while (state != null) {
+            path.add(0, state);
+            state = state.getParent();
+        }
+        
+        for (State st : path) {
+            System.out.println(st);
+        }
     }
 
 }//end of Class Convoy
