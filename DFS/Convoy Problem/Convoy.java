@@ -4,14 +4,14 @@ import java.io.*;
 class State{
     private ArrayList<Truck> vehiclesLeft, vehiclesPassed;
 	private int batchWeight;
-    private double pathTime, batchTime;
+    private double pathTime, batchSpeed;
 	private State parent;
 	
-    public State(ArrayList<Truck> vehiclesLeft, ArrayList<Truck> vehiclesPassed, double pathTime, int batchTime, int batchWeight, State parent) {
+    public State(ArrayList<Truck> vehiclesLeft, ArrayList<Truck> vehiclesPassed, double pathTime, int batchSpeed, int batchWeight, State parent) {
     	this.vehiclesLeft = vehiclesLeft;
     	this.vehiclesPassed = vehiclesPassed;
     	this.pathTime = pathTime;
-    	this.batchTime = batchTime;
+    	this.batchSpeed = batchSpeed;
     	this.batchWeight = batchWeight;
     	this.parent = parent;
     }
@@ -40,12 +40,12 @@ class State{
 		this.pathTime = pathTime;
 	}
 	
-	public double getBatchTime() {
-		return batchTime;
+	public double getbatchSpeed() {
+		return batchSpeed;
 	}
 
-	public void setBatchTime(double batchTime) {
-		this.batchTime = batchTime;
+	public void setbatchSpeed(double batchSpeed) {
+		this.batchSpeed = batchSpeed;
 	}
 
 	public int getBatchWeight() {
@@ -99,7 +99,7 @@ class State{
 
     @Override
     public String toString() {
-        return String.format("--------------------------------------------------\n\nVehicles passed: %d \nVehicles left: %d \nBatch Weight: %d \nBatch Time: %.1f \nTotal Path Time: %.1f\n\n--------------------------------------------------", vehiclesPassed.size(), vehiclesLeft.size(), batchWeight, batchTime, pathTime);
+        return String.format("--------------------------------------------------\n\nVehicles passed: %d \nVehicles left: %d \nBatch Weight: %d \nBatch Speed: %.1f \nTotal Path Time: %.1f\n\n--------------------------------------------------", vehiclesPassed.size(), vehiclesLeft.size(), batchWeight, batchSpeed, pathTime);
     }
 }//end of Class State
 
