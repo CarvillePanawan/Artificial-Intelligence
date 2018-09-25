@@ -2,12 +2,12 @@ import java.util.ArrayList;
 import java.lang.Math;
 
 public class State implements Comparable<State>{
-	private ArrayList<Truck> vehiclesLeft, vehiclesPassed;
+	private ArrayList<Vehicle> vehiclesLeft, vehiclesPassed;
 	private float pathTime, batchTime;
 	private int batchWeight;
 	private State parent;
 	
-    public State(ArrayList<Truck> vehiclesLeft, ArrayList<Truck> vehiclesPassed, float pathTime, float batchTime, int batchWeight, State parent) {
+    public State(ArrayList<Vehicle> vehiclesLeft, ArrayList<Vehicle> vehiclesPassed, float pathTime, float batchTime, int batchWeight, State parent) {
     	this.vehiclesLeft = vehiclesLeft;
     	this.vehiclesPassed = vehiclesPassed;
     	this.pathTime = pathTime;
@@ -16,19 +16,19 @@ public class State implements Comparable<State>{
     	this.parent = parent;
     }
     
-	public ArrayList<Truck> getVehiclesLeft() {
+	public ArrayList<Vehicle> getVehiclesLeft() {
 		return vehiclesLeft;
 	}
 
-	public void setVehiclesLeft(ArrayList<Truck> trucksLeft) {
+	public void setVehiclesLeft(ArrayList<Vehicle> trucksLeft) {
 		this.vehiclesLeft = trucksLeft;
 	}
     
-	public ArrayList<Truck> getVehiclesPassed() {
+	public ArrayList<Vehicle> getVehiclesPassed() {
 		return vehiclesPassed;
 	}
 
-	public void setVehiclesPassed(ArrayList<Truck> trucksPassed) {
+	public void setVehiclesPassed(ArrayList<Vehicle> trucksPassed) {
 		this.vehiclesPassed = trucksPassed;
 	}
 
@@ -72,17 +72,17 @@ public class State implements Comparable<State>{
     	ArrayList<State> successorStates = new ArrayList<State>();
     	if(this.getVehiclesLeft().size()!=0) {
     		
-    		ArrayList<Truck> left = new ArrayList<Truck>();
+    		ArrayList<Vehicle> left = new ArrayList<Vehicle>();
     		left.addAll(this.getVehiclesLeft());
-    		ArrayList<Truck> passed = new ArrayList<Truck>();
+    		ArrayList<Vehicle> passed = new ArrayList<Vehicle>();
     		passed.addAll(this.getVehiclesPassed());
         	State parent = new State(left, passed, this.getPathTime(), this.getBatchTime(), this.getBatchWeight(), this.getParent());
         	
     		for(int x = 0; x < parent.vehiclesLeft.size() && weightChecker(x) <= maxLoad; x++) {
     			
-        		ArrayList<Truck> left1 = new ArrayList<Truck>();
+        		ArrayList<Vehicle> left1 = new ArrayList<Vehicle>();
         		left1.addAll(parent.getVehiclesLeft());
-        		ArrayList<Truck> passed1 = new ArrayList<Truck>();
+        		ArrayList<Vehicle> passed1 = new ArrayList<Vehicle>();
         		passed1.addAll(parent.getVehiclesPassed());
             	State successor = new State(left1, passed1, parent.getPathTime(), parent.getBatchTime(), parent.getBatchWeight(), parent.getParent());
             	

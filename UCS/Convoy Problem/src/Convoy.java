@@ -13,15 +13,15 @@ public class Convoy {
 			int maxLoad = reader.nextInt();
 			int bridgeLength = reader.nextInt();
 			int totalVehicles = reader.nextInt();
-			ArrayList<Truck> vehicleList = new ArrayList<Truck>();
+			ArrayList<Vehicle> vehicleList = new ArrayList<Vehicle>();
 			
 			for(int i = 1; reader.hasNextLine() && i <= totalVehicles && i <= 1000; i++) {
-				vehicleList.add(new Truck(reader.nextInt(), reader.nextInt()));
+				vehicleList.add(new Vehicle(reader.nextInt(), reader.nextInt()));
 			}
 			reader.close();
 			
 			PriorityQueue<State> frontier = new PriorityQueue<State>();
-			State initialState = new State(vehicleList, new ArrayList<Truck>(), 0, 0, 0, null);
+			State initialState = new State(vehicleList, new ArrayList<Vehicle>(), 0, 0, 0, null);
 			frontier.add(initialState);
 			int maxFrontierSize = 1;
 			

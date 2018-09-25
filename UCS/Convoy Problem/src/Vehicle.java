@@ -1,13 +1,13 @@
-public class Truck implements Comparable<Truck> {
+public class Vehicle implements Comparable<Vehicle> {
     private int weight;
     private int speed;
     
-    public Truck() {
+    public Vehicle() {
         weight = 0;
         speed = 0;
     }
     
-    public Truck(int weight, int speed) {
+    public Vehicle(int weight, int speed) {
         this.weight = weight;
         this.speed = speed;
     }
@@ -34,7 +34,7 @@ public class Truck implements Comparable<Truck> {
     }
 
     @Override
-    public int compareTo(Truck x) {
+    public int compareTo(Vehicle x) {
         if(this.getSpeed() > x.getSpeed()) {
             return 1;
         } else if(this.getSpeed() < x.getSpeed()) {
