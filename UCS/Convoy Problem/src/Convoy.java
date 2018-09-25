@@ -24,18 +24,23 @@ public class Convoy {
 			State initialState = new State(vehicleList, new ArrayList<Vehicle>(), 0, 0, 0, null);
 			frontier.add(initialState);
 			int maxFrontierSize = 1;
+			int totalStatesVisited = 0;
+			float averageBranchingFactor = 0;
 			
 			while (frontier.size() > 0){
 				State currentState = frontier.poll();
 				if(currentState.isGoal()) {
-					showSolution(currentState, maxLoad, bridgeLength, totalVehicles, maxFrontierSize);
+					averageBranchingFactor = averageBranchingFactor/(totalStatesVisited-1);
+					showSolution(currentState, maxLoad, bridgeLength, totalVehicles, maxFrontierSize, totalStatesVisited, averageBranchingFactor);
 					break;
 				} else {
 					ArrayList<State> successorStates = currentState.expand(maxLoad, bridgeLength);
 					if(successorStates != null) {
 						frontier.addAll(successorStates);
 		                maxFrontierSize = Math.max(maxFrontierSize, frontier.size());
+		                averageBranchingFactor += successorStates.size();
 					}
+					totalStatesVisited ++;
 				}
 			}
 		} catch(FileNotFoundException e) {
@@ -43,7 +48,7 @@ public class Convoy {
 		}
 	}
 	
-	public static void showSolution(State solution, int maxLoad, int bridgeLength, int totalVehicles, int maxFrontierSize) {
+	public static void showSolution(State solution, int maxLoad, int bridgeLength, int totalVehicles, int maxFrontierSize, int totalStatesVisited, float averageBranchingFactor) {
 		if(solution == null) {
 			System.out.println("There is no solution");
 		} else {
@@ -60,6 +65,9 @@ public class Convoy {
 			System.out.println("Bridge Length: " + bridgeLength);
 			System.out.println("Number of Vehicles: " + totalVehicles);
 			System.out.println("Maximum Frontier Size: " + maxFrontierSize);
+			System.out.println("Total States Visited: " + totalStatesVisited);
+			System.out.printf("Average Branching Factor: %.2f%n", averageBranchingFactor);
+			
 			
 			for(State st : path) {
 				System.out.println(st.toString());
