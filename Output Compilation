@@ -1,0 +1,58 @@
+------------------------------------------------------------------------------
+
+Inital Input:
+100 5 10
+40 25 50 20 50 20 70 10 12 50 9 70 49 30 38 25 27 50 19 70
+
+------------------------------------------------------------------------------
+
+Maximum bridge load: 100
+Length of the bridge: 5
+Number of vehicles: 10
+
+Vehicles:
+[40 25] [50 20] [50 20] [70 10] [12 50] [9 70] [49 30] [38 25] [27 50] [19 70]
+
+------------------------------------------------------------------------------
+
+BFS Right to Left
+Total Time: 78.0
+Total States Visited: 46 
+Maximum Size of Frontier: 78 
+
+BFS Left to Right
+Total Time: 79.0
+Total States Visited: 48 
+Maximum Size of Frontier: 68 
+
+BFS Optimum
+Total Time: 75.0
+Total States Visited: 
+Maximum Size of Frontier: 
+
+DFS Right-most Branch First
+Total Time: 78.0
+Total States Visited: 6
+Maximum Size of Frontier: 6
+
+DFS Left-most Branch First
+Total Time: 114.6
+Total States Visited: 11
+Maximum Size of Frontier: 13 
+
+DFS Optimum
+Total Time: 75.0
+Total States Visited: 
+Maximum Size of Frontier: 
+
+UCS 
+Total Time 83.3
+Total States Visited: 17
+Maximum Size of Frontier: 23
+
+UCS Optimum
+Total Time 75.0
+Total States Visited: 189
+Maximum Size of Frontier: 23 
+
+------------------------------------------------------------------------------
