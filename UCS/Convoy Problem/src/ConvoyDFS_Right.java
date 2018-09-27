@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class ConvoyLeftFirst {
+public class ConvoyDFS_Right {
 	public static void main(String[] args) {
 		File inputs = new File("inputs.txt");
 		
@@ -27,7 +27,7 @@ public class ConvoyLeftFirst {
 			float averageBranchingFactor = 0;
 			
 			while (frontier.size() > 0){
-				State currentState = frontier.remove(0);
+				State currentState = frontier.remove(frontier.size()-1);
 				if(currentState.isGoal()) {
 					averageBranchingFactor = averageBranchingFactor/(totalStatesVisited-1);
 					showSolution(currentState, maxLoad, bridgeLength, totalVehicles, maxFrontierSize, totalStatesVisited, averageBranchingFactor);
@@ -35,7 +35,7 @@ public class ConvoyLeftFirst {
 				} else {
 					ArrayList<State> successorStates = currentState.expand(maxLoad, bridgeLength);
 					if(successorStates != null) {
-						frontier.addAll(0, successorStates);
+						frontier.addAll(successorStates);
 		                maxFrontierSize = Math.max(maxFrontierSize, frontier.size());
 		                averageBranchingFactor += successorStates.size();
 					}

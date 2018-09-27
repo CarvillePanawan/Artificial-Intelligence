@@ -1,9 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class ConvoyRightFirst {
+public class ConvoyBFS_Right {
 	public static void main(String[] args) {
 		File inputs = new File("inputs.txt");
 		
@@ -28,6 +29,7 @@ public class ConvoyRightFirst {
 			
 			while (frontier.size() > 0){
 				State currentState = frontier.remove(frontier.size()-1);
+				totalStatesVisited ++;
 				if(currentState.isGoal()) {
 					averageBranchingFactor = averageBranchingFactor/(totalStatesVisited-1);
 					showSolution(currentState, maxLoad, bridgeLength, totalVehicles, maxFrontierSize, totalStatesVisited, averageBranchingFactor);
@@ -35,11 +37,10 @@ public class ConvoyRightFirst {
 				} else {
 					ArrayList<State> successorStates = currentState.expand(maxLoad, bridgeLength);
 					if(successorStates != null) {
-						frontier.addAll(successorStates);
+						frontier.addAll(0, successorStates);
 		                maxFrontierSize = Math.max(maxFrontierSize, frontier.size());
 		                averageBranchingFactor += successorStates.size();
 					}
-					totalStatesVisited ++;
 				}
 			}
 		} catch(FileNotFoundException e) {
