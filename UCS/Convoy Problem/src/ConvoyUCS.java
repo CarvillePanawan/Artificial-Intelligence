@@ -1,9 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class ConvoyDFS_Right {
+public class ConvoyUCS {
 	public static void main(String[] args) {
 		File inputs = new File("inputs.txt");
 		
@@ -19,7 +20,7 @@ public class ConvoyDFS_Right {
 			}
 			reader.close();
 			
-			ArrayList<State> frontier = new ArrayList<State>();
+			PriorityQueue<State> frontier = new PriorityQueue<State>();
 			State initialState = new State(vehicleList, new ArrayList<Vehicle>(), 0, 0, 0, null);
 			frontier.add(initialState);
 			int maxFrontierSize = 1;
@@ -27,7 +28,7 @@ public class ConvoyDFS_Right {
 			float averageBranchingFactor = 0;
 			
 			while (frontier.size() > 0){
-				State currentState = frontier.remove(frontier.size()-1);
+				State currentState = frontier.poll();
 				totalStatesVisited ++;
 				if(currentState.isGoal()) {
 					averageBranchingFactor = averageBranchingFactor/(totalStatesVisited-1);

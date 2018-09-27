@@ -28,6 +28,7 @@ public class ConvoyDFS_Left {
 			
 			while (frontier.size() > 0){
 				State currentState = frontier.remove(0);
+				totalStatesVisited ++;
 				if(currentState.isGoal()) {
 					averageBranchingFactor = averageBranchingFactor/(totalStatesVisited-1);
 					showSolution(currentState, maxLoad, bridgeLength, totalVehicles, maxFrontierSize, totalStatesVisited, averageBranchingFactor);
@@ -39,7 +40,6 @@ public class ConvoyDFS_Left {
 		                maxFrontierSize = Math.max(maxFrontierSize, frontier.size());
 		                averageBranchingFactor += successorStates.size();
 					}
-					totalStatesVisited ++;
 				}
 			}
 		} catch(FileNotFoundException e) {
@@ -66,6 +66,8 @@ public class ConvoyDFS_Left {
 			System.out.println("Maximum Frontier Size: " + maxFrontierSize);
 			System.out.println("Total States Visited: " + totalStatesVisited);
 			System.out.printf("Average Branching Factor: %.2f%n", averageBranchingFactor);
+			System.out.println("------------------------------");
+			System.out.println("          Path Taken");
 			
 			
 			for(State st : path) {

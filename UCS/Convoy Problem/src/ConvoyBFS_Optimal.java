@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class ConvoyDFS_Right {
+public class ConvoyBFS_Optimal {
 	public static void main(String[] args) {
 		File inputs = new File("inputs.txt");
 		
@@ -24,15 +24,25 @@ public class ConvoyDFS_Right {
 			frontier.add(initialState);
 			int maxFrontierSize = 1;
 			int totalStatesVisited = 0;
-			float averageBranchingFactor = 0;
+			int averageBranchingFactor = 0;
+			int temp = 0;
+			
+			ArrayList<State> goalStates = new ArrayList<State>();
+			ArrayList<Integer> maxFrontierSizeList = new ArrayList<Integer>();
+			ArrayList<Integer> totalStatesVisitedList = new ArrayList<Integer>();
+			ArrayList<Integer> averageBranchingFactorList = new ArrayList<Integer>();
 			
 			while (frontier.size() > 0){
-				State currentState = frontier.remove(frontier.size()-1);
+				State currentState = frontier.remove(0);
 				totalStatesVisited ++;
 				if(currentState.isGoal()) {
+					goalStates.add(currentState);
+					totalStatesVisitedList.add(totalStatesVisited);
+					maxFrontierSizeList.add(maxFrontierSize);
+					temp = averageBranchingFactor;
 					averageBranchingFactor = averageBranchingFactor/(totalStatesVisited-1);
-					showSolution(currentState, maxLoad, bridgeLength, totalVehicles, maxFrontierSize, totalStatesVisited, averageBranchingFactor);
-					break;
+					averageBranchingFactorList.add(averageBranchingFactor);
+					averageBranchingFactor = temp;
 				} else {
 					ArrayList<State> successorStates = currentState.expand(maxLoad, bridgeLength);
 					if(successorStates != null) {
@@ -42,6 +52,18 @@ public class ConvoyDFS_Right {
 					}
 				}
 			}
+			
+			int index = 0;
+			State solution = goalStates.get(0);
+			if (goalStates != null) {
+				for(int i = 0; i < goalStates.size(); i++) {
+					if(goalStates.get(i).getPathTime() <= solution.getPathTime()) {
+						solution = goalStates.get(i);
+						index = i;
+					}
+				}
+			}
+			showSolution(solution, maxLoad, bridgeLength, totalVehicles, maxFrontierSizeList.get(index), totalStatesVisitedList.get(index), averageBranchingFactorList.get(index));
 		} catch(FileNotFoundException e) {
 			System.out.println("File not Found");
 		}

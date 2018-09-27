@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -67,6 +66,8 @@ public class ConvoyBFS_Right {
 			System.out.println("Maximum Frontier Size: " + maxFrontierSize);
 			System.out.println("Total States Visited: " + totalStatesVisited);
 			System.out.printf("Average Branching Factor: %.2f%n", averageBranchingFactor);
+			System.out.println("------------------------------");
+			System.out.println("          Path Taken");
 			
 			
 			for(State st : path) {
