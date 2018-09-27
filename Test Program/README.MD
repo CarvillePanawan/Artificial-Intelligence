@@ -1,1 +1,0 @@
-The program aims to solve the problem as it is and not as a search problem.
