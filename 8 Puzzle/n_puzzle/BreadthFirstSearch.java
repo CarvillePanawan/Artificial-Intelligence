@@ -75,7 +75,7 @@ public class BreadthFirstSearch {
 
         System.out.printf("\nTotal States Visited: %d\n", totalStatesVisited);
         System.out.printf("Maximum Size of Frontier: %d\n", maxFrontierSize);
-        System.out.printf("Total Number of Moves: %d\n", totalMoves);
+        System.out.printf("Total Number of Moves: %d\n", totalMoves-1);
         System.out.println();
         
         System.out.println("Solution:");
