@@ -1,7 +1,6 @@
-# Artificial-Intelligence
-Subjectively the best group ;)
+# Uninformed Search
 
-### To do(Sept. 22, 2018)
-- [x] State representation
-- [x] Goal condition
-- [x] How to expand a State
+## Search Strategies
+1. Breadth-First Search
+2. Depth-First Search
+3. Uniform Cost Search
