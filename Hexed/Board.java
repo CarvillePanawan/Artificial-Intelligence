@@ -110,11 +110,11 @@ public class Board {
             for(int i = board.length-1; i >= 0; i--){
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
-                        if((j&1) == 0 && board[i-1][j-1] != ' '){
+                        if((j&1) == 0 && board[i-1][j-1] != ' ' &&  board[i-1][j-1] != board[i][j]){
                             System.out.printf("even column\n");
                             System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
                             System.out.printf("Next Column: %d Next Row: %d Char: %s%n",(i-1),(j-1),board[i-1][j-1]);
-                        } else if((j&1) == 1 && board[i][j-1] != ' ') {
+                        } else if((j&1) == 1 && board[i][j-1] != ' ' && board[i][j-1] != board[i][j]) {
                             System.out.printf("odd column\n");
                             System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
                             System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j-1),board[i][j-1]);
@@ -138,11 +138,11 @@ public class Board {
             for(int i = board.length-1; i >= 0; i--){
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
-                        if((j&1) == 0 && board[i+1][j+1] != ' '){
+                        if((j&1) == 0 && board[i+1][j+1] != ' ' && board[i+1][j+1] != board[i][j]){
                             System.out.printf("even column\n");
                             System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
                             System.out.printf("Next Column: %d Row: %d Char: %s%n",(i-1),(j+1),board[i-1][j+1]);
-                        } else if((j&1) == 1 && board[i][j+1] != ' ') {
+                        } else if((j&1) == 1 && board[i][j+1] != ' ' && board[i][j+1] != board[i][j]) {
                             System.out.printf("odd column\n");
                             System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
                             System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j+1),board[i][j+1]);
@@ -166,11 +166,11 @@ public class Board {
             for(int i = board.length-1; i >= 0; i--){
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
-                        if((j&1) == 0 && board[i][j-1] != ' '){
+                        if((j&1) == 0 && board[i][j-1] != ' ' && board[i][j-1] != board[i][j]){
                             System.out.printf("even column\n");
                             System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
                             System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j-1),board[i][j-1]);
-                        } else if((j&1) == 1 && board[i+1][j-1] != ' ') {
+                        } else if((j&1) == 1 && board[i+1][j-1] != ' ' && board[i+1][j-1] != board[i][j]) {
                             System.out.printf("odd column\n");
                             System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
                             System.out.printf("Next Column: %d Row: %d Char: %s%n",(i+1),(j-1),board[i+1][j-1]);
@@ -194,11 +194,11 @@ public class Board {
             for(int i = board.length-1; i >= 0; i--){
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
-                        if((j&1) == 0 && board[i][j+1] != ' '){
+                        if((j&1) == 0 && board[i][j+1] != ' ' && board[i][j+1] != board[i][j]){
                             System.out.printf("even column\n");
                             System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
                             System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j+1),board[i][j+1]);
-                        } else if((j&1) == 1 && board[i+1][j+1] != ' ') {
+                        } else if((j&1) == 1 && board[i+1][j+1] != ' ' && board[i+1][j+1] != board[i][j]) {
                             System.out.printf("odd column\n");
                             System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
                             System.out.printf("Next Column: %d Row: %d Char: %s%n",(i+1),(j+1),board[i+1][j+1]);
