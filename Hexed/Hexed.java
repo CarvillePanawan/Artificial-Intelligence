@@ -24,21 +24,24 @@ public class Hexed {
         char color = sc.next().charAt(0);
         
         testRun.populate(row, col, Character.toLowerCase(color));
-        testRun.show();
+        testRun.showBoard();
+        System.out.println();
+        testRun.showArray();
+        System.out.println();
 
         int g = testRun.playerGreenChips().size();
         int r = testRun.playerRedChips().size();
         System.out.printf("Green Chips: %d%nRed Chips: %d%n",g,r);
 
         ArrayList<Chip> l = new ArrayList<Chip>();
-        System.out.printf("\ncheck right diagonal up\n");
-        l = testRun.checkRightDiagonalUp();
-        System.out.printf("\ncheck left diagonal up\n");
-        l = testRun.checkLeftDiagonalUp();
-        System.out.printf("\ncheck right diagonal down\n");
-        l = testRun.checkRightDiagonalDown();
-        System.out.printf("\ncheck left diagonal down\n");
-        l = testRun.checkLeftDiagonalDown();
+        System.out.printf("\nCheck North East\n");
+        l = testRun.checkNorthEast();
+        System.out.printf("\nCheck North West\n");
+        l = testRun.checkNorthWest();
+        System.out.printf("\nCheck South East\n");
+        l = testRun.checkSouthEast();
+        System.out.printf("\nCheck South West\n");
+        l = testRun.checkSouthWest();
         System.out.printf("\n"+l.size());
         
         sc.close();

@@ -7,7 +7,7 @@ public class Board {
         this.board = board;
     }
     
-    public void show() {
+    public void showBoard() {
         System.out.println("["+board[6][0]+"]   ["+board[6][2]+"]   ["+board[6][4]+"]   ["+board[6][6]+"]   ["+board[6][8]+"]");
         for(int i = board.length-2; i >= 0; i--) {
             System.out.println("   ["+board[i][1]+"]   ["+board[i][3]+"]   ["+board[i][5]+"]   ["+board[i][7]+"]");
@@ -19,10 +19,14 @@ public class Board {
         }
     }
     
-    public void showBoard() {
+    public void showArray() {
         for(int i = board.length-1; i >= 0 ; i--) {
-            for(int j = board[i].length-1; j >= 0; j--) {
-                System.out.print("["+board[i][j]+"]");
+            for(int j = 0; j < board[i].length; j++) {
+            	if(board[i][j] == ' '){
+            		System.out.print("["+i+","+j+"]");
+            	}else{
+            		System.out.print("[ "+board[i][j]+" ]");
+            	}
             }
             System.out.println();
         }
@@ -84,7 +88,7 @@ public class Board {
         return chips;
     }
     
-    public ArrayList<Chip> checkLeftDiagonalDown(Chip move, ArrayList<Chip> chips) {
+    public ArrayList<Chip> checkSouthWest(Chip move, ArrayList<Chip> chips) {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int row = move.getRow();
         int col = move.getCol();
@@ -102,7 +106,7 @@ public class Board {
         return res;
     }
 
-    public ArrayList<Chip> checkLeftDiagonalDown() {
+    public ArrayList<Chip> checkSouthWest() {
         ArrayList<Chip> res = new ArrayList<Chip>();
         byte s = 0;
 
@@ -131,7 +135,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkRightDiagonalDown() {
+    public ArrayList<Chip> checkSouthEast() {
         ArrayList<Chip> res = new ArrayList<Chip>();
 
         try{
@@ -159,7 +163,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkLeftDiagonalUp() {
+    public ArrayList<Chip> checkNorthWest() {
         ArrayList<Chip> res = new ArrayList<Chip>();
 
         try{
@@ -187,7 +191,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkRightDiagonalUp() {
+    public ArrayList<Chip> checkNorthEast() {
         ArrayList<Chip> res = new ArrayList<Chip>();
 
         try{
