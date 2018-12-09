@@ -27,8 +27,8 @@ public class Board {
             	}else{
             		System.out.print("[ "+board[i][j]+" ]");
             	}
+                System.out.println();
             }
-            System.out.println();
         }
     }
     
@@ -95,7 +95,7 @@ public class Board {
         char color = move.getColor();
         
         for(int i = col; i < board.length; i++) {
-            if(board[row][col] != color && board[row][col] != ' ' && (col%1 == 0)) {
+            if(board[row][col] != color && board[row][col] != ' ') {
                 row--;
                 col--;
             } else {
@@ -108,20 +108,44 @@ public class Board {
 
     public ArrayList<Chip> checkSouthWest() {
         ArrayList<Chip> res = new ArrayList<Chip>();
-        byte s = 0;
+        int col = 0;
+        int row = 0;
 
         try{
             for(int i = board.length-1; i >= 0; i--){
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
-                        if((j&1) == 0 && board[i-1][j-1] != ' ' &&  board[i-1][j-1] != board[i][j]){
-                            System.out.printf("even column\n");
-                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
-                            System.out.printf("Next Column: %d Next Row: %d Char: %s%n",(i-1),(j-1),board[i-1][j-1]);
-                        } else if((j&1) == 1 && board[i][j-1] != ' ' && board[i][j-1] != board[i][j]) {
-                            System.out.printf("odd column\n");
-                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
-                            System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j-1),board[i][j-1]);
+                        
+                        if((j&1) == 0){
+                            row = i-1;
+                            col = j-1;
+                        }else{
+                            row = i;
+                            col = j-1;
+                        }
+
+                        while((j&1) == 0 && board[row][col] != ' ' &&  board[row][col] != board[i][j]) {
+                            if((col&1) == 0){
+                                col -= 1;
+                                row -= 1;
+                            } else {
+                                col -= 1;
+                            }
+                            if(board[row][col] == ' '){
+                                res.add(new Chip(row,col,board[i][j]));
+                            }
+                        }
+
+                        while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                            if((col&1) == 0){
+                                col -= 1;
+                                row -= 1;
+                            } else {
+                                row -= 1;
+                            }
+                            if(board[col][row] == ' '){
+                                res.add(new Chip(row,col,board[i][j]));
+                            }
                         }
                     }
                 }
@@ -137,19 +161,46 @@ public class Board {
 
     public ArrayList<Chip> checkSouthEast() {
         ArrayList<Chip> res = new ArrayList<Chip>();
+        int col = 0;
+        int row = 0;
 
         try{
             for(int i = board.length-1; i >= 0; i--){
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
-                        if((j&1) == 0 && board[i+1][j+1] != ' ' && board[i+1][j+1] != board[i][j]){
-                            System.out.printf("even column\n");
-                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
-                            System.out.printf("Next Column: %d Row: %d Char: %s%n",(i-1),(j+1),board[i-1][j+1]);
-                        } else if((j&1) == 1 && board[i][j+1] != ' ' && board[i][j+1] != board[i][j]) {
-                            System.out.printf("odd column\n");
-                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
-                            System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j+1),board[i][j+1]);
+                        
+                        if((j&1) == 0){
+                            row = i-1;
+                            col = j+1;
+                        }else{
+                            row = i;
+                            col = j+1;
+                        }
+
+                        while((j&1) == 0 && board[row][col] != ' ' &&  board[row][col] != board[i][j]) {
+                            
+                            if((col&1) == 0){
+                                col += 1;
+                                row -= 1;
+                            } else {
+                                col += 1;
+                            }
+                            if(board[row][col] == ' '){
+                                res.add(new Chip(row,col,board[i][j]));
+                            }
+                        }
+
+                        while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                            
+                            if((col&1) == 0){
+                                col += 1;
+                                row -= 1;
+                            } else {
+                                row += 1;
+                            }
+                            if(board[row][col] == ' '){
+                                res.add(new Chip(row,col,board[i][j]));
+                            }
                         }
                     }
                 }
@@ -165,19 +216,44 @@ public class Board {
 
     public ArrayList<Chip> checkNorthWest() {
         ArrayList<Chip> res = new ArrayList<Chip>();
+        int col = 0;
+        int row = 0;
 
         try{
             for(int i = board.length-1; i >= 0; i--){
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
-                        if((j&1) == 0 && board[i][j-1] != ' ' && board[i][j-1] != board[i][j]){
-                            System.out.printf("even column\n");
-                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
-                            System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j-1),board[i][j-1]);
-                        } else if((j&1) == 1 && board[i+1][j-1] != ' ' && board[i+1][j-1] != board[i][j]) {
-                            System.out.printf("odd column\n");
-                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
-                            System.out.printf("Next Column: %d Row: %d Char: %s%n",(i+1),(j-1),board[i+1][j-1]);
+                        
+                        if((j&1) == 0){
+                            row = i;
+                            col = j-1;
+                        }else{
+                            row = i+1;
+                            col = j-1;
+                        }
+
+                        while((j&1) == 0 && board[row][col] != ' ' &&  board[row][col] != board[i][j]) {
+                            if((col&1) == 0){
+                                col -= 1;
+                                row += 1;
+                            } else {
+                                col -= 1;
+                                row += 1;
+                            }
+                            if(board[row][col] == ' '){
+                                res.add(new Chip(row,col,board[i][j]));
+                            }
+                        }
+
+                        while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                            if((col&1) == 0){
+                                col -= 1;
+                            } else {
+                                row += 1;
+                            }
+                            if(board[row][col] == ' '){
+                                res.add(new Chip(row,col,board[i][j]));
+                            }
                         }
                     }
                 }
@@ -193,19 +269,44 @@ public class Board {
 
     public ArrayList<Chip> checkNorthEast() {
         ArrayList<Chip> res = new ArrayList<Chip>();
+        int col = 0;
+        int row = 0;
 
         try{
             for(int i = board.length-1; i >= 0; i--){
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
-                        if((j&1) == 0 && board[i][j+1] != ' ' && board[i][j+1] != board[i][j]){
-                            System.out.printf("even column\n");
-                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
-                            System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j+1),board[i][j+1]);
-                        } else if((j&1) == 1 && board[i+1][j+1] != ' ' && board[i+1][j+1] != board[i][j]) {
-                            System.out.printf("odd column\n");
-                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
-                            System.out.printf("Next Column: %d Row: %d Char: %s%n",(i+1),(j+1),board[i+1][j+1]);
+                        
+                        if((j&1) == 0){
+                            row = i;
+                            col = j+1;
+                        }else{
+                            row = i+1;
+                            col = j+1;
+                        }
+
+                        while((j&1) == 0 && board[row][col] != ' ' &&  board[row][col] != board[i][j]) {
+                            if((col&1) == 0){
+                                col += 1;
+                                row += 1;
+                            } else {
+                                col += 1;
+                                row += 1;
+                            }
+                            if(board[row][col] == ' '){
+                                res.add(new Chip(row,col,board[i][j]));
+                            }
+                        }
+
+                        while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                            if((col&1) == 0){
+                                col += 1;
+                            } else {
+                                col += 1;
+                            }
+                            if(board[row][col] == ' '){
+                                res.add(new Chip(row,col,board[i][j]));
+                            }
                         }
                     }
                 }

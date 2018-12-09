@@ -32,4 +32,8 @@ public class Chip {
     public char getColor() {
         return color;
     }
+
+    public String toString(){
+        return "Column: "+col+" Row: "+row+" Color: "+color;
+    }
 }
