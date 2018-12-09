@@ -40,16 +40,16 @@ public class Board {
         
         res[x][y] = top;
         
-        if((x&1)==0 && (y&1)==1) {
+        if((x&1)==0 && (y&1)==1) { //col odd, row even
             res[x-1][y-1] = res[x-1][y+1] = top;
             res[x-2][y] = res[x][y-1] = res[x][y+1] = other;
-        }else if((x&1)==0 && (y&1)==0){
+        } else if((x&1)==0 && (y&1)==0) { //col even, row even
             res[x-2][y-1] = res[x-2][y+1] = top;
             res[x-2][y] = res[x-1][y-1] = res[x-1][y+1] = other;
-        }else if((x&1)==1 && (y&1)==1){
+        } else if((x&1)==1 && (y&1)==1) { //col even, row even
             res[x-1][y-1] = res[x-1][y+1] = top;
             res[x-2][y] = res[x][y-1] = res[x][y+1] = other;
-        }else{
+        } else { //col even, row odd
             res[x-2][y-1] = res[x-2][y+1] = top;
             res[x-2][y] = res[x-1][y-1] = res[x-1][y+1] = other;
         }
@@ -84,14 +84,14 @@ public class Board {
         return chips;
     }
     
-    public ArrayList<Chip> checkDiagonallyDown(Chip move, ArrayList<Chip> chips) {
+    public ArrayList<Chip> checkLeftDiagonalDown(Chip move, ArrayList<Chip> chips) {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int row = move.getRow();
         int col = move.getCol();
         char color = move.getColor();
         
         for(int i = col; i < board.length; i++) {
-            if(board[row][col] != color && board[row][col] != ' ') {
+            if(board[row][col] != color && board[row][col] != ' ' && (col%1 == 0)) {
                 row--;
                 col--;
             } else {
@@ -102,11 +102,124 @@ public class Board {
         return res;
     }
 
-    // public Chip checkDiagonalLeftDown(){
-        
-    // }
+    public ArrayList<Chip> checkLeftDiagonalDown() {
+        ArrayList<Chip> res = new ArrayList<Chip>();
+        byte s = 0;
 
-    public String showAllPossibleMoves(ArrayList<Chip> chips){
+        try{
+            for(int i = board.length-1; i >= 0; i--){
+                for(int j = board[i].length-1; j >= 0; j--){
+                    if(board[i][j] != ' '){
+                        if((j&1) == 0 && board[i-1][j-1] != ' '){
+                            System.out.printf("even column\n");
+                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
+                            System.out.printf("Next Column: %d Next Row: %d Char: %s%n",(i-1),(j-1),board[i-1][j-1]);
+                        } else if((j&1) == 1 && board[i][j-1] != ' ') {
+                            System.out.printf("odd column\n");
+                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
+                            System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j-1),board[i][j-1]);
+                        }
+                    }
+                }
+            }
+
+        }catch (ArrayIndexOutOfBoundsException e){
+            
+        }
+
+        return res;
+
+    }
+
+    public ArrayList<Chip> checkRightDiagonalDown() {
+        ArrayList<Chip> res = new ArrayList<Chip>();
+
+        try{
+            for(int i = board.length-1; i >= 0; i--){
+                for(int j = board[i].length-1; j >= 0; j--){
+                    if(board[i][j] != ' '){
+                        if((j&1) == 0 && board[i+1][j+1] != ' '){
+                            System.out.printf("even column\n");
+                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
+                            System.out.printf("Next Column: %d Row: %d Char: %s%n",(i-1),(j+1),board[i-1][j+1]);
+                        } else if((j&1) == 1 && board[i][j+1] != ' ') {
+                            System.out.printf("odd column\n");
+                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
+                            System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j+1),board[i][j+1]);
+                        }
+                    }
+                }
+            }
+
+        }catch (ArrayIndexOutOfBoundsException e){
+            
+        }
+
+        return res;
+
+    }
+
+    public ArrayList<Chip> checkLeftDiagonalUp() {
+        ArrayList<Chip> res = new ArrayList<Chip>();
+
+        try{
+            for(int i = board.length-1; i >= 0; i--){
+                for(int j = board[i].length-1; j >= 0; j--){
+                    if(board[i][j] != ' '){
+                        if((j&1) == 0 && board[i][j-1] != ' '){
+                            System.out.printf("even column\n");
+                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
+                            System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j-1),board[i][j-1]);
+                        } else if((j&1) == 1 && board[i+1][j-1] != ' ') {
+                            System.out.printf("odd column\n");
+                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
+                            System.out.printf("Next Column: %d Row: %d Char: %s%n",(i+1),(j-1),board[i+1][j-1]);
+                        }
+                    }
+                }
+            }
+
+        }catch (ArrayIndexOutOfBoundsException e){
+            
+        }
+
+        return res;
+
+    }
+
+    public ArrayList<Chip> checkRightDiagonalUp() {
+        ArrayList<Chip> res = new ArrayList<Chip>();
+
+        try{
+            for(int i = board.length-1; i >= 0; i--){
+                for(int j = board[i].length-1; j >= 0; j--){
+                    if(board[i][j] != ' '){
+                        if((j&1) == 0 && board[i][j+1] != ' '){
+                            System.out.printf("even column\n");
+                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
+                            System.out.printf("Next Column: %d Row: %d Char: %s%n",i,(j+1),board[i][j+1]);
+                        } else if((j&1) == 1 && board[i+1][j+1] != ' ') {
+                            System.out.printf("odd column\n");
+                            System.out.printf("Column: %d Row: %d Char: %s%n",i,j,board[i][j]);
+                            System.out.printf("Next Column: %d Row: %d Char: %s%n",(i+1),(j+1),board[i+1][j+1]);
+                        }
+                    }
+                }
+            }
+
+        }catch (ArrayIndexOutOfBoundsException e){
+            
+        }
+
+        return res;
+
+    }
+
+    public void updateBoard(Chip move) {
+
+    }
+
+    public String showAllPossibleMoves(ArrayList<Chip> chips) {
         return "";
     }
     
