@@ -46,9 +46,12 @@ public class Board {
         }else if((x&1)==0 && (y&1)==0){
             res[x-2][y-1] = res[x-2][y+1] = top;
             res[x-2][y] = res[x-1][y-1] = res[x-1][y+1] = other;
-        }else{
+        }else if((x&1)==1 && (y&1)==1){
             res[x-1][y-1] = res[x-1][y+1] = top;
             res[x-2][y] = res[x][y-1] = res[x][y+1] = other;
+        }else{
+            res[x-2][y-1] = res[x-2][y+1] = top;
+            res[x-2][y] = res[x-1][y-1] = res[x-1][y+1] = other;
         }
         
         return res;
@@ -78,7 +81,6 @@ public class Board {
                 }
             }
         }
-        
         return chips;
     }
     
@@ -98,6 +100,14 @@ public class Board {
         }
         
         return res;
+    }
+
+    // public Chip checkDiagonalLeftDown(){
+        
+    // }
+
+    public String showAllPossibleMoves(ArrayList<Chip> chips){
+        return "";
     }
     
     public char[][] getboard() {
