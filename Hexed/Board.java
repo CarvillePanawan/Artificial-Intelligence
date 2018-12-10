@@ -320,6 +320,62 @@ public class Board {
 
     }
 
+    public ArrayList<Chip> checkNorth() {
+        ArrayList<Chip> res = new ArrayList<Chip>();
+        int col = 0;
+        int row = 0;
+
+        try{
+            for(int i = board.length-1; i >= 0; i--){
+                for(int j = board[i].length-1; j >= 0; j--){
+                    if(board[i][j] != ' '){
+                        row = i + 1;
+                        while(board[row][j] != ' ' &&  board[row][j] != board[i][j]) {
+                            row++;
+                            if(board[row][col] == ' '){
+                                res.add(new Chip(row,j,board[i][j]));
+                            }
+                        }
+                    }
+                }
+            }
+
+        }catch (ArrayIndexOutOfBoundsException e){
+            
+        }
+
+        return res;
+
+    }
+
+    public ArrayList<Chip> checkSouth() {
+        ArrayList<Chip> res = new ArrayList<Chip>();
+        int col = 0;
+        int row = 0;
+
+        try{
+            for(int i = board.length-1; i >= 0; i--){
+                for(int j = board[i].length-1; j >= 0; j--){
+                    if(board[i][j] != ' '){
+                        row = i - 1;
+                        while(board[row][j] != ' ' &&  board[row][j] != board[i][j]) {
+                            row--;
+                            if(board[row][col] == ' '){
+                                res.add(new Chip(row,j,board[i][j]));
+                            }
+                        }
+                    }
+                }
+            }
+
+        }catch (ArrayIndexOutOfBoundsException e){
+            
+        }
+
+        return res;
+
+    }
+
     public void updateBoard(Chip move) {
 
     }

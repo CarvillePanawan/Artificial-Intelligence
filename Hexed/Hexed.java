@@ -23,11 +23,11 @@ public class Hexed {
         System.out.print("Enter top color[R/G]: ");
         char color = sc.next().charAt(0);
         
-         testRun.populate(row, col, Character.toLowerCase(color));
+        testRun.populate(row, col, Character.toLowerCase(color));
         testRun.showBoard();
-        System.out.println();
-        testRun.showArray();
-        System.out.println();
+        // System.out.println();
+        // testRun.showArray();
+        // System.out.println();
 
         int g = testRun.playerGreenChips().size();
         int r = testRun.playerRedChips().size();
@@ -36,7 +36,7 @@ public class Hexed {
         ArrayList<Chip> l = new ArrayList<Chip>();
         int size = 0;
 
-        System.out.printf("\nCheck North East\n");
+        System.out.printf("\n\nCheck North East");
         l = testRun.checkNorthEast();
 
         for(int i = 0; i < l.size(); i++){
@@ -45,7 +45,7 @@ public class Hexed {
 
         size += l.size();
 
-        System.out.printf("\nCheck North West\n");
+        System.out.printf("\n\nCheck North West");
         l = testRun.checkNorthWest();
 
         for(int i = 0; i < l.size(); i++){
@@ -54,7 +54,7 @@ public class Hexed {
         
         size += l.size();
 
-        System.out.printf("\nCheck South East\n");
+        System.out.printf("\n\nCheck South East");
         l = testRun.checkSouthEast();
 
         for(int i = 0; i < l.size(); i++){
@@ -63,8 +63,17 @@ public class Hexed {
 
         size += l.size();
 
-        System.out.printf("\nCheck South West\n");
+        System.out.printf("\n\nCheck South West");
         l = testRun.checkSouthWest();
+
+        for(int i = 0; i < l.size(); i++){
+            System.out.printf("\n"+l.get(i).toString());
+        }
+        
+        size += l.size();
+
+        System.out.printf("\n\nCheck North");
+        l = testRun.checkNorth();
 
         for(int i = 0; i < l.size(); i++){
             System.out.printf("\n"+l.get(i).toString());
@@ -72,7 +81,16 @@ public class Hexed {
 
         size += l.size();
 
-        System.out.printf("\n\nNumber of Possible Moves: "+size);
+        System.out.printf("\n\nCheck South");
+        l = testRun.checkSouth();
+
+        for(int i = 0; i < l.size(); i++){
+            System.out.printf("\n"+l.get(i).toString());
+        }
+
+        size += l.size();
+
+        System.out.printf("%n%nNumber of Possible Moves: %d%n",size);
         
         sc.close();
     }
