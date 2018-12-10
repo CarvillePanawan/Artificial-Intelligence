@@ -322,7 +322,6 @@ public class Board {
 
     public ArrayList<Chip> checkNorth() {
         ArrayList<Chip> res = new ArrayList<Chip>();
-        int col = 0;
         int row = 0;
 
         try{
@@ -332,7 +331,7 @@ public class Board {
                         row = i + 1;
                         while(board[row][j] != ' ' &&  board[row][j] != board[i][j]) {
                             row++;
-                            if(board[row][col] == ' '){
+                            if(board[row][j] == ' ' &&  board[row][j] != board[i][j]){
                                 res.add(new Chip(row,j,board[i][j]));
                             }
                         }
@@ -350,7 +349,6 @@ public class Board {
 
     public ArrayList<Chip> checkSouth() {
         ArrayList<Chip> res = new ArrayList<Chip>();
-        int col = 0;
         int row = 0;
 
         try{
@@ -360,7 +358,7 @@ public class Board {
                         row = i - 1;
                         while(board[row][j] != ' ' &&  board[row][j] != board[i][j]) {
                             row--;
-                            if(board[row][col] == ' '){
+                            if(board[row][j] == ' ' &&  board[row][j] != board[i][j]){
                                 res.add(new Chip(row,j,board[i][j]));
                             }
                         }
@@ -374,6 +372,29 @@ public class Board {
 
         return res;
 
+    }
+
+    public char[][] setBoard(){
+        char[][] res = board.clone();
+
+        for(int i = res.length-1; i >= 0; i--){
+            for(int j = res[i].length-1; j >= 0; j--){
+                res[i][j]=' ';
+            }
+        }
+
+        res[3][2] = 'r';
+        res[2][3] = 'g';
+        res[3][4] = 'r';
+
+        res[4][2] = 'g';
+        res[4][3] = 'r';
+        res[4][4] = 'g';
+
+        res[2][2] = 'r';
+        res[4][5] = 'g';
+        res[5][4] = 'g';
+        return res;
     }
 
     public void updateBoard(Chip move) {

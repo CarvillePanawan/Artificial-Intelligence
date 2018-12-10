@@ -23,7 +23,8 @@ public class Hexed {
         System.out.print("Enter top color[R/G]: ");
         char color = sc.next().charAt(0);
         
-        testRun.populate(row, col, Character.toLowerCase(color));
+        // testRun.populate(row, col, Character.toLowerCase(color));
+        testRun.setBoard();
         testRun.showBoard();
         // System.out.println();
         // testRun.showArray();
