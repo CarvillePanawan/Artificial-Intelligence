@@ -124,14 +124,14 @@ public class Board {
                             col = j-1;
                         }
 
-                        while((j&1) == 0 && board[row][col] != ' ' &&  board[row][col] != board[i][j]) {
+                        while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
                             if((col&1) == 0){
                                 col -= 1;
                                 row -= 1;
                             } else {
                                 col -= 1;
                             }
-                            if(board[row][col] == ' '){
+                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -143,7 +143,7 @@ public class Board {
                             } else {
                                 row -= 1;
                             }
-                            if(board[col][row] == ' '){
+                            if(board[col][row] == ' ' && board[row][col] != board[i][j]){
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -177,7 +177,7 @@ public class Board {
                             col = j+1;
                         }
 
-                        while((j&1) == 0 && board[row][col] != ' ' &&  board[row][col] != board[i][j]) {
+                        while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
                             
                             if((col&1) == 0){
                                 col += 1;
@@ -185,7 +185,7 @@ public class Board {
                             } else {
                                 col += 1;
                             }
-                            if(board[row][col] == ' '){
+                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -198,7 +198,7 @@ public class Board {
                             } else {
                                 row += 1;
                             }
-                            if(board[row][col] == ' '){
+                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -232,7 +232,7 @@ public class Board {
                             col = j-1;
                         }
 
-                        while((j&1) == 0 && board[row][col] != ' ' &&  board[row][col] != board[i][j]) {
+                        while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
                             if((col&1) == 0){
                                 col -= 1;
                                 row += 1;
@@ -240,7 +240,7 @@ public class Board {
                                 col -= 1;
                                 row += 1;
                             }
-                            if(board[row][col] == ' '){
+                            if(board[row][col] == ' '  &&  board[row][col] != board[i][j]){
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -251,7 +251,7 @@ public class Board {
                             } else {
                                 row += 1;
                             }
-                            if(board[row][col] == ' '){
+                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -285,7 +285,7 @@ public class Board {
                             col = j+1;
                         }
 
-                        while((j&1) == 0 && board[row][col] != ' ' &&  board[row][col] != board[i][j]) {
+                        while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
                             if((col&1) == 0){
                                 col += 1;
                                 row += 1;
@@ -293,7 +293,7 @@ public class Board {
                                 col += 1;
                                 row += 1;
                             }
-                            if(board[row][col] == ' '){
+                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -304,7 +304,7 @@ public class Board {
                             } else {
                                 col += 1;
                             }
-                            if(board[row][col] == ' '){
+                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -329,9 +329,9 @@ public class Board {
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
                         row = i + 1;
-                        while(board[row][j] != ' ' &&  board[row][j] != board[i][j]) {
+                        while(board[row][j] != ' ' && board[row][j] != board[i][j]) {
                             row++;
-                            if(board[row][j] == ' ' &&  board[row][j] != board[i][j]){
+                            if(board[row][j] == ' ' && board[row][j] != board[i][j]){
                                 res.add(new Chip(row,j,board[i][j]));
                             }
                         }
@@ -356,9 +356,9 @@ public class Board {
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
                         row = i - 1;
-                        while(board[row][j] != ' ' &&  board[row][j] != board[i][j]) {
+                        while(board[row][j] != ' ' && board[row][j] != board[i][j]) {
                             row--;
-                            if(board[row][j] == ' ' &&  board[row][j] != board[i][j]){
+                            if(board[row][j] == ' ' && board[row][j] != board[i][j]){
                                 res.add(new Chip(row,j,board[i][j]));
                             }
                         }

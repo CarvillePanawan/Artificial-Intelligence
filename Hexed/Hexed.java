@@ -15,13 +15,13 @@ public class Hexed {
         char[][] board = new char[7][9];
         Board testRun = new Board(board);
         
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter col: ");
-        int col = sc.nextInt();
-        System.out.print("Enter row: ");
-        int row = sc.nextInt();
-        System.out.print("Enter top color[R/G]: ");
-        char color = sc.next().charAt(0);
+        // Scanner sc = new Scanner(System.in);
+        // System.out.print("Enter col: ");
+        // int col = sc.nextInt();
+        // System.out.print("Enter row: ");
+        // int row = sc.nextInt();
+        // System.out.print("Enter top color[R/G]: ");
+        // char color = sc.next().charAt(0);
         
         // testRun.populate(row, col, Character.toLowerCase(color));
         testRun.setBoard();
@@ -93,6 +93,6 @@ public class Hexed {
 
         System.out.printf("%n%nNumber of Possible Moves: %d%n",size);
         
-        sc.close();
+        // sc.close();
     }
 }
