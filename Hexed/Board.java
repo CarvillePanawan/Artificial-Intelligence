@@ -170,7 +170,7 @@ public class Board {
                     if(board[i][j] != ' '){
                         
                         if((j&1) == 0){
-                            row = i;
+                            row = i-1;
                             col = j+1;
                         }else{
                             row = i-1;
@@ -178,7 +178,8 @@ public class Board {
                         }
 
                         while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
-                            
+                            System.out.printf("%nRow: %d Col: %d%n",i,j);
+                            System.out.printf("%nRow: %d Col: %d%n",row,col);
                             if((col&1) == 0){
                                 col += 1;
                                 row -= 1;
@@ -191,7 +192,8 @@ public class Board {
                         }
 
                         while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
-                            
+                            System.out.printf("%nRow: %d Col: %d%n",i,j);
+                            System.out.printf("%nRow: %d Col: %d%n",row,col);
                             if((col&1) == 0){
                                 col += 1;
                                 row -= 1;
@@ -199,6 +201,7 @@ public class Board {
                                 row += 1;
                             }
                             if(board[row][col] == ' ' && board[row][col] != board[i][j]){
+                            System.out.printf("%nPush Row: %d Col: %d%n",row,col);
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -235,7 +238,6 @@ public class Board {
                         while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
                             if((col&1) == 0){
                                 col -= 1;
-                                row += 1;
                             } else {
                                 col -= 1;
                                 row += 1;
@@ -249,7 +251,7 @@ public class Board {
                             if((col&1) == 0){
                                 col -= 1;
                             } else {
-                                row += 1;
+                                col -= 1;
                             }
                             if(board[row][col] == ' ' && board[row][col] != board[i][j]){
                                 res.add(new Chip(row,col,board[i][j]));
@@ -393,10 +395,17 @@ public class Board {
         res[4][4] = 'g';
 
         res[2][2] = 'r';
-        res[4][5] = 'g';
+        res[2][4] = 'g';
         res[5][4] = 'g';
+
         res[5][5] = 'g';
-        res[3][5] = 'g';
+        res[3][5] = 'r';
+        res[3][6] = 'r';
+
+        res[5][2] = 'r';
+        res[1][2] = 'g';
+        res[0][3] = 'g';
+        res[1][1] = 'r';
         return res;
     }
 
