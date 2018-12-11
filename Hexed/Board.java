@@ -106,7 +106,7 @@ public class Board {
         return res;
     }
 
-    public ArrayList<Chip> checkSouthWest() {
+    public ArrayList<Chip> checkSouthWest(Chip lastMove) {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int col = 0;
         int row = 0;
@@ -143,7 +143,7 @@ public class Board {
                             } else {
                                 row -= 1;
                             }
-                            if(board[col][row] == ' ' && board[row][col] != board[i][j]){
+                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -159,7 +159,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkSouthEast() {
+    public ArrayList<Chip> checkSouthEast(Chip lastMove) {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int col = 0;
         int row = 0;
@@ -173,13 +173,11 @@ public class Board {
                             row = i-1;
                             col = j+1;
                         }else{
-                            row = i-1;
+                            row = i;
                             col = j+1;
                         }
 
                         while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
-                            System.out.printf("%nRow: %d Col: %d%n",i,j);
-                            System.out.printf("%nRow: %d Col: %d%n",row,col);
                             if((col&1) == 0){
                                 col += 1;
                                 row -= 1;
@@ -192,16 +190,13 @@ public class Board {
                         }
 
                         while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
-                            System.out.printf("%nRow: %d Col: %d%n",i,j);
-                            System.out.printf("%nRow: %d Col: %d%n",row,col);
                             if((col&1) == 0){
                                 col += 1;
                                 row -= 1;
                             } else {
-                                row += 1;
+                                col += 1;
                             }
                             if(board[row][col] == ' ' && board[row][col] != board[i][j]){
-                            System.out.printf("%nPush Row: %d Col: %d%n",row,col);
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -217,7 +212,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkNorthWest() {
+    public ArrayList<Chip> checkNorthWest(Chip lastMove) {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int col = 0;
         int row = 0;
@@ -269,7 +264,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkNorthEast() {
+    public ArrayList<Chip> checkNorthEast(Chip lastMove) {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int col = 0;
         int row = 0;
@@ -282,7 +277,7 @@ public class Board {
                         if((j&1) == 0){
                             row = i;
                             col = j+1;
-                        }else{
+                        }else if((j&1) == 1){
                             row = i+1;
                             col = j+1;
                         }
@@ -290,7 +285,6 @@ public class Board {
                         while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
                             if((col&1) == 0){
                                 col += 1;
-                                row += 1;
                             } else {
                                 col += 1;
                                 row += 1;
@@ -323,7 +317,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkNorth() {
+    public ArrayList<Chip> checkNorth(Chip lastMove) {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int row = 0;
 
@@ -350,7 +344,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkSouth() {
+    public ArrayList<Chip> checkSouth(Chip lastMove) {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int row = 0;
 
@@ -388,7 +382,7 @@ public class Board {
 
         res[3][2] = 'r';
         res[2][3] = 'g';
-        res[3][4] = 'r';
+        res[3][4] = 'g';
 
         res[4][2] = 'g';
         res[4][3] = 'r';
@@ -409,8 +403,8 @@ public class Board {
         return res;
     }
 
-    public void updateBoard(Chip move) {
-
+    public void updateBoard(Chip lastMove) {
+        
     }
 
     public String showAllPossibleMoves(ArrayList<Chip> chips) {

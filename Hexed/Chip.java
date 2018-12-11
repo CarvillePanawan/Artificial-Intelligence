@@ -34,6 +34,6 @@ public class Chip {
     }
 
     public String toString(){
-        return "Column: "+col+" Row: "+row+" Color: "+color;
+        return "Row: "+row+" Column: "+col+" Color: "+color;
     }
 }
