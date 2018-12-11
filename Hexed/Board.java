@@ -88,25 +88,25 @@ public class Board {
         return chips;
     }
     
-    public ArrayList<Chip> checkSouthWest(Chip move, ArrayList<Chip> chips) {
-        ArrayList<Chip> res = new ArrayList<Chip>();
-        int row = move.getRow();
-        int col = move.getCol();
-        char color = move.getColor();
+    // public ArrayList<Chip> checkSouthWest(Chip move, ArrayList<Chip> chips) {
+    //     ArrayList<Chip> res = new ArrayList<Chip>();
+    //     int row = move.getRow();
+    //     int col = move.getCol();
+    //     char color = move.getColor();
         
-        for(int i = col; i < board.length; i++) {
-            if(board[row][col] != color && board[row][col] != ' ') {
-                row--;
-                col--;
-            } else {
+    //     for(int i = col; i < board.length; i++) {
+    //         if(board[row][col] != color && board[row][col] != ' ') {
+    //             row--;
+    //             col--;
+    //         } else {
                 
-            }
-        }
+    //         }
+    //     }
         
-        return res;
-    }
+    //     return res;
+    // }
 
-    public ArrayList<Chip> checkSouthWest(Chip lastMove) {
+    public ArrayList<Chip> checkSouthWest() {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int col = 0;
         int row = 0;
@@ -159,7 +159,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkSouthEast(Chip lastMove) {
+    public ArrayList<Chip> checkSouthEast() {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int col = 0;
         int row = 0;
@@ -212,7 +212,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkNorthWest(Chip lastMove) {
+    public ArrayList<Chip> checkNorthWest() {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int col = 0;
         int row = 0;
@@ -264,7 +264,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkNorthEast(Chip lastMove) {
+    public ArrayList<Chip> checkNorthEast() {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int col = 0;
         int row = 0;
@@ -277,31 +277,31 @@ public class Board {
                         if((j&1) == 0){
                             row = i;
                             col = j+1;
-                        }else if((j&1) == 1){
+                        }else{
                             row = i+1;
                             col = j+1;
                         }
 
-                        while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                        while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != (board[i][j])) {
                             if((col&1) == 0){
                                 col += 1;
                             } else {
                                 col += 1;
                                 row += 1;
                             }
-                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
+                            if(board[row][col] == ' ' && board[row][col] != (board[i][j])) {
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
 
-                        while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                        while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != (board[i][j])) {
                             if((col&1) == 0){
                                 col += 1;
                             } else {
                                 col += 1;
                                 row += 1;
                             }
-                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
+                            if(board[row][col] == ' ' && board[row][col] != (board[i][j])) {
                                 res.add(new Chip(row,col,board[i][j]));
                             }
                         }
@@ -317,7 +317,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkNorth(Chip lastMove) {
+    public ArrayList<Chip> checkNorth() {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int row = 0;
 
@@ -344,7 +344,7 @@ public class Board {
 
     }
 
-    public ArrayList<Chip> checkSouth(Chip lastMove) {
+    public ArrayList<Chip> checkSouth() {
         ArrayList<Chip> res = new ArrayList<Chip>();
         int row = 0;
 
@@ -403,12 +403,24 @@ public class Board {
         return res;
     }
 
-    public void updateBoard(Chip lastMove) {
-        
+    public char[][] updateBoard(Chip move) {
+        char[][] res = board.clone();
+        return res;
     }
 
-    public String showAllPossibleMoves(ArrayList<Chip> chips) {
-        return "";
+    public ArrayList<Chip> showAllPossibleMoves(Chip lastMove, ArrayList<Chip> chips) {
+        ArrayList<Chip> moves = new ArrayList<Chip>();
+
+        char ch = lastMove.getColor() == 'r' ? 'g' : 'r';
+
+        for(int i = 0; i < chips.size(); i++){
+            if(chips.get(i).getColor() != lastMove.getColor()){
+                System.out.printf("%nPlayer: %s Row: %d Col: %d Char: %s",ch,chips.get(i).getRow(),chips.get(i).getCol(), chips.get(i).getColor());
+                moves.add(chips.get(i));
+            }
+        }
+
+        return moves;
     }
     
     public char[][] getboard() {
