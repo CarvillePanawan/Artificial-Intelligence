@@ -2,6 +2,12 @@ public class Chip {
     int row;
     int col;
     char color;
+
+    public Chip() {
+        this.row = 0;
+        this.col = 0;
+        this.color = 'n';
+    }
     
     public Chip(int row, int col, char color) {
         this.row = row;

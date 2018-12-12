@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Hexed {
     public static void main(String[] args) {
@@ -14,6 +15,7 @@ public class Hexed {
     public void run() {
         char[][] board = new char[7][9];
         Board testRun = new Board(board);
+        Random rand = new Random();
         
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter col: ");
@@ -22,38 +24,76 @@ public class Hexed {
         int row = sc.nextInt();
         System.out.print("Enter top color[R/G]: ");
         char top = sc.next().charAt(0);
-        System.out.print("Enter player color[R/G]: ");
-        char color = sc.next().charAt(0);
         System.out.print("Enter first move[R/G]: ");
         char firstMove = sc.next().charAt(0);
+        System.out.print("Enter your color[R/G]: ");
+        char color = sc.next().charAt(0);
+        char turn = firstMove;
         
         testRun.populate(row, col, Character.toLowerCase(top));
         // testRun.setBoard();
-        testRun.showBoard();
+        
         // System.out.println();
         // testRun.showArray();
         // System.out.println();
 
-        Chip x = new Chip (0,0,'g');
+        // while(){
+
+        // }
 
         int g = testRun.playerGreenChips().size();
         int r = testRun.playerRedChips().size();
         System.out.printf("Green Chips: %d%nRed Chips: %d%n",g,r);
 
-        ArrayList<Chip> l = new ArrayList<Chip>();
-        int size = 0;
+        ArrayList<Move> l = new ArrayList<Move>();
+        ArrayList<Move> s = new ArrayList<Move>();
 
-        l.addAll(testRun.checkNorthEast());
-        l.addAll(testRun.checkNorthWest());
-        l.addAll(testRun.checkSouthEast());
-        l.addAll(testRun.checkSouthWest());
-        l.addAll(testRun.checkNorth());
-        l.addAll(testRun.checkSouth());
+        int choice = 0;
 
-        l = testRun.showAllPossibleMoves(x,l);
+        while(true){
 
-        System.out.printf("%n%nNumber of Possible Moves: %d%n",l.size());
-        
-        // sc.close();
+            testRun.showBoard();
+            
+            l.addAll(testRun.checkNorthEast());
+            l.addAll(testRun.checkNorthWest());
+            l.addAll(testRun.checkSouthEast());
+            l.addAll(testRun.checkSouthWest());
+            l.addAll(testRun.checkNorth());
+            l.addAll(testRun.checkSouth());
+
+            s = testRun.showAllPossibleMoves(turn,l);
+
+            if(l.size() == 0){
+                System.out.println("Hexed!");
+
+                if(turn == 'r'){
+                    turn = 'g';
+                }else{
+                    turn = 'r';
+                }
+            }else{
+
+                if(turn != color){
+                    System.out.printf("\nSelect a move: ");
+                    choice = sc.nextInt();
+                }else{
+                    choice = rand.nextInt(s.size()) + 0;
+                    System.out.printf("Choice: %d%n", choice);
+                    System.out.printf("Turn %nRow: %d Col: %d%n",s.get(choice).getMove().getRow(),s.get(choice).getMove().getCol());
+                    sc.nextLine();
+                }
+
+                if(turn == 'r'){
+                    turn = 'g';
+                }else{
+                    turn = 'r';
+                }
+
+                testRun = new Board(s.get(choice).getBoard());
+
+                l = new ArrayList<Move>();
+
+            }
+        }
     }
 }

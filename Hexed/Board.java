@@ -106,8 +106,11 @@ public class Board {
     //     return res;
     // }
 
-    public ArrayList<Chip> checkSouthWest() {
+    public ArrayList<Move> checkSouthWest() {
         ArrayList<Chip> res = new ArrayList<Chip>();
+        ArrayList<Move> move = new ArrayList<Move>();
+        char[][] tempBoard = new char[7][9];
+
         int col = 0;
         int row = 0;
 
@@ -124,27 +127,41 @@ public class Board {
                             col = j-1;
                         }
 
+                        tempBoard = clone(board);
+
                         while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                            if(tempBoard[row][col] != ' ' && tempBoard[row][col] != tempBoard[i][j]){
+                                tempBoard[row][col] = tempBoard[i][j];
+                            }
                             if((col&1) == 0){
                                 col -= 1;
                                 row -= 1;
                             } else {
                                 col -= 1;
                             }
-                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
-                                res.add(new Chip(row,col,board[i][j]));
+                            if(board[row][col] == ' ' && board[row][col] != tempBoard[i][j]) {
+                                tempBoard[row][col] = tempBoard[i][j];
+                                move.add(new Move(new Chip(row,col,tempBoard[i][j]),tempBoard));
+                                tempBoard = clone(board);
                             }
                         }
 
+                        tempBoard = clone(board);
+
                         while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                            if(tempBoard[row][col] != ' ' && tempBoard[row][col] != tempBoard[i][j]){
+                                tempBoard[row][col] = tempBoard[i][j];
+                            }
                             if((col&1) == 0){
                                 col -= 1;
                                 row -= 1;
                             } else {
                                 row -= 1;
                             }
-                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
-                                res.add(new Chip(row,col,board[i][j]));
+                            if(board[row][col] == ' ' && board[row][col] != tempBoard[i][j]) {
+                                tempBoard[row][col] = tempBoard[i][j];
+                                move.add(new Move(new Chip(row,col,tempBoard[i][j]),tempBoard));
+                                tempBoard = clone(board);
                             }
                         }
                     }
@@ -155,12 +172,15 @@ public class Board {
             
         }
 
-        return res;
+        return move;
 
     }
 
-    public ArrayList<Chip> checkSouthEast() {
+    public ArrayList<Move> checkSouthEast() {
         ArrayList<Chip> res = new ArrayList<Chip>();
+        ArrayList<Move> move = new ArrayList<Move>();
+        char[][] tempBoard = new char[7][9];
+
         int col = 0;
         int row = 0;
 
@@ -177,27 +197,41 @@ public class Board {
                             col = j+1;
                         }
 
+                        tempBoard = clone(board);
+
                         while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                            if(tempBoard[row][col] != ' ' && tempBoard[row][col] != tempBoard[i][j]){
+                                tempBoard[row][col] = tempBoard[i][j];
+                            }
                             if((col&1) == 0){
                                 col += 1;
                                 row -= 1;
                             } else {
                                 col += 1;
                             }
-                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
-                                res.add(new Chip(row,col,board[i][j]));
+                            if(board[row][col] == ' ' && board[row][col] != tempBoard[i][j]) {
+                                tempBoard[row][col] = tempBoard[i][j];
+                                move.add(new Move(new Chip(row,col,tempBoard[i][j]),tempBoard));
+                                tempBoard = clone(board);
                             }
                         }
 
+                        tempBoard = clone(board);
+
                         while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                            if(tempBoard[row][col] != ' ' && tempBoard[row][col] != tempBoard[i][j]){
+                                tempBoard[row][col] = tempBoard[i][j];
+                            }
                             if((col&1) == 0){
                                 col += 1;
                                 row -= 1;
                             } else {
                                 col += 1;
                             }
-                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
-                                res.add(new Chip(row,col,board[i][j]));
+                            if(board[row][col] == ' ' && board[row][col] != tempBoard[i][j]) {
+                                tempBoard[row][col] = tempBoard[i][j];
+                                move.add(new Move(new Chip(row,col,tempBoard[i][j]),tempBoard));
+                                tempBoard = clone(board);
                             }
                         }
                     }
@@ -208,12 +242,15 @@ public class Board {
             
         }
 
-        return res;
+        return move;
 
     }
 
-    public ArrayList<Chip> checkNorthWest() {
+    public ArrayList<Move> checkNorthWest() {
         ArrayList<Chip> res = new ArrayList<Chip>();
+        ArrayList<Move> move = new ArrayList<Move>();
+        char[][] tempBoard = new char[7][9];
+
         int col = 0;
         int row = 0;
 
@@ -230,26 +267,40 @@ public class Board {
                             col = j-1;
                         }
 
+                        tempBoard = clone(board);
+
                         while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                            if(tempBoard[row][col] != ' ' && tempBoard[row][col] != tempBoard[i][j]){
+                                tempBoard[row][col] = tempBoard[i][j];
+                            }
                             if((col&1) == 0){
                                 col -= 1;
                             } else {
                                 col -= 1;
                                 row += 1;
                             }
-                            if(board[row][col] == ' '  &&  board[row][col] != board[i][j]){
-                                res.add(new Chip(row,col,board[i][j]));
+                            if(board[row][col] == ' ' && board[row][col] != tempBoard[i][j]) {
+                                tempBoard[row][col] = tempBoard[i][j];
+                                move.add(new Move(new Chip(row,col,tempBoard[i][j]),tempBoard));
+                                tempBoard = clone(board);
                             }
                         }
 
+                        tempBoard = clone(board);
+
                         while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != board[i][j]) {
+                            if(tempBoard[row][col] != ' ' && tempBoard[row][col] != tempBoard[i][j]){
+                                tempBoard[row][col] = tempBoard[i][j];
+                            }
                             if((col&1) == 0){
                                 col -= 1;
                             } else {
                                 col -= 1;
                             }
-                            if(board[row][col] == ' ' && board[row][col] != board[i][j]){
-                                res.add(new Chip(row,col,board[i][j]));
+                            if(board[row][col] == ' ' && board[row][col] != tempBoard[i][j]) {
+                                tempBoard[row][col] = tempBoard[i][j];
+                                move.add(new Move(new Chip(row,col,tempBoard[i][j]),tempBoard));
+                                tempBoard = clone(board);
                             }
                         }
                     }
@@ -260,12 +311,15 @@ public class Board {
             
         }
 
-        return res;
+        return move;
 
     }
 
-    public ArrayList<Chip> checkNorthEast() {
+    public ArrayList<Move> checkNorthEast() {
         ArrayList<Chip> res = new ArrayList<Chip>();
+        ArrayList<Move> move = new ArrayList<Move>();
+        char[][] tempBoard = new char[7][9];
+
         int col = 0;
         int row = 0;
 
@@ -282,19 +336,29 @@ public class Board {
                             col = j+1;
                         }
 
-                        while((j&1) == 0 && board[row][col] != ' ' && board[row][col] != (board[i][j])) {
+                        tempBoard = clone(board);
+
+                        while((j&1) == 0 && board[row][col] != ' ' && board[row][col] !=board[i][j]) {
+                            if(tempBoard[row][col] != ' ' && tempBoard[row][col] != tempBoard[i][j]){
+                                tempBoard[row][col] = tempBoard[i][j];
+                            }
                             if((col&1) == 0){
                                 col += 1;
                             } else {
                                 col += 1;
                                 row += 1;
                             }
-                            if(board[row][col] == ' ' && board[row][col] != (board[i][j])) {
-                                res.add(new Chip(row,col,board[i][j]));
+                            if(board[row][col] == ' ' && board[row][col] != tempBoard[i][j]) {
+                                tempBoard[row][col] = tempBoard[i][j];
+                                move.add(new Move(new Chip(row,col,tempBoard[i][j]),tempBoard));
+                                tempBoard = clone(board);
                             }
                         }
 
                         while((j&1) == 1 && board[row][col] != ' ' && board[row][col] != (board[i][j])) {
+                            if(tempBoard[row][col] != ' ' && tempBoard[row][col] != tempBoard[i][j]){
+                                tempBoard[row][col] = tempBoard[i][j];
+                            }
                             if((col&1) == 0){
                                 col += 1;
                             } else {
@@ -302,7 +366,9 @@ public class Board {
                                 row += 1;
                             }
                             if(board[row][col] == ' ' && board[row][col] != (board[i][j])) {
-                                res.add(new Chip(row,col,board[i][j]));
+                                tempBoard[row][col] = tempBoard[i][j];
+                                move.add(new Move(new Chip(row,col,tempBoard[i][j]),tempBoard));
+                                tempBoard = clone(board);
                             }
                         }
                     }
@@ -313,12 +379,15 @@ public class Board {
             
         }
 
-        return res;
+        return move;
 
     }
 
-    public ArrayList<Chip> checkNorth() {
+    public ArrayList<Move> checkNorth() {
         ArrayList<Chip> res = new ArrayList<Chip>();
+        ArrayList<Move> move = new ArrayList<Move>();
+        char[][] tempBoard = new char[7][9];
+
         int row = 0;
 
         try{
@@ -326,10 +395,18 @@ public class Board {
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
                         row = i + 1;
+
+                        tempBoard = clone(board);
+
                         while(board[row][j] != ' ' && board[row][j] != board[i][j]) {
+                            if(tempBoard[row][j] != ' ' && tempBoard[row][j] != tempBoard[i][j]){
+                                tempBoard[row][j] = tempBoard[i][j];
+                            }
                             row++;
-                            if(board[row][j] == ' ' && board[row][j] != board[i][j]){
-                                res.add(new Chip(row,j,board[i][j]));
+                            if(board[row][j] == ' ' && board[row][j] != tempBoard[i][j]) {
+                                tempBoard[row][j] = tempBoard[i][j];
+                                move.add(new Move(new Chip(row,j,tempBoard[i][j]),tempBoard));
+                                tempBoard = clone(board);
                             }
                         }
                     }
@@ -340,12 +417,15 @@ public class Board {
             
         }
 
-        return res;
+        return move;
 
     }
 
-    public ArrayList<Chip> checkSouth() {
+    public ArrayList<Move> checkSouth() {
         ArrayList<Chip> res = new ArrayList<Chip>();
+        ArrayList<Move> move = new ArrayList<Move>();
+        char[][] tempBoard = new char[7][9];
+
         int row = 0;
 
         try{
@@ -353,10 +433,18 @@ public class Board {
                 for(int j = board[i].length-1; j >= 0; j--){
                     if(board[i][j] != ' '){
                         row = i - 1;
+
+                        tempBoard = clone(board);
+
                         while(board[row][j] != ' ' && board[row][j] != board[i][j]) {
+                            if(tempBoard[row][j] != ' ' && tempBoard[row][j] != tempBoard[i][j]){
+                                tempBoard[row][j] = tempBoard[i][j];
+                            }
                             row--;
-                            if(board[row][j] == ' ' && board[row][j] != board[i][j]){
-                                res.add(new Chip(row,j,board[i][j]));
+                            if(board[row][j] == ' ' && board[row][j] != tempBoard[i][j]) {
+                                tempBoard[row][j] = tempBoard[i][j];
+                                move.add(new Move(new Chip(row,j,tempBoard[i][j]),tempBoard));
+                                tempBoard = clone(board);
                             }
                         }
                     }
@@ -367,7 +455,7 @@ public class Board {
             
         }
 
-        return res;
+        return move;
 
     }
 
@@ -403,27 +491,40 @@ public class Board {
         return res;
     }
 
-    public char[][] updateBoard(Chip move) {
+    public char[][] updateBoard(Chip move, ArrayList<Chip> moves) {
         char[][] res = board.clone();
+        
         return res;
     }
 
-    public ArrayList<Chip> showAllPossibleMoves(Chip lastMove, ArrayList<Chip> chips) {
-        ArrayList<Chip> moves = new ArrayList<Chip>();
+    public ArrayList<Move> showAllPossibleMoves(char move, ArrayList<Move> moves) {
+        ArrayList<Move> res = new ArrayList<Move>();
+        int count = 0;
 
-        char ch = lastMove.getColor() == 'r' ? 'g' : 'r';
+        char ch = move == 'r' ? 'g' : 'r';
 
-        for(int i = 0; i < chips.size(); i++){
-            if(chips.get(i).getColor() != lastMove.getColor()){
-                System.out.printf("%nPlayer: %s Row: %d Col: %d Char: %s",ch,chips.get(i).getRow(),chips.get(i).getCol(), chips.get(i).getColor());
-                moves.add(chips.get(i));
+        for(int i = 0; i < moves.size(); i++){
+            if(moves.get(i).getMove().getColor() != ch){
+                System.out.printf("[%d] Row: %d Col: %d Color: %s%n",count,moves.get(i).getMove().getRow(),moves.get(i).getMove().getCol(),moves.get(i).getMove().getColor());
+                count++;
+                res.add(moves.get(i));
             }
         }
 
-        return moves;
+        return res;
+    }
+
+    public char[][] clone(char[][] other){
+        char[][] b = new char[7][9];
+        for(int i = board.length-1; i >= 0; i--){
+                for(int j = board[i].length-1; j >= 0; j--){
+                    b[i][j] = other[i][j];
+                }
+        }
+        return b;
     }
     
-    public char[][] getboard() {
+    public char[][] getBoard() {
         return board;
     }
 }
