@@ -2,13 +2,49 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Board {
+	int depth;
+	int heuristicCost;
+	Board parent;
     char[][] board;
     
-    public Board(char[][] board) {
-        this.board = board;
+    public Board() {
+        this.depth = 0;
+        this.parent = null;
+        this.board = null;
     }
     
-    public char[][] getBoard() {
+    public Board(int depth, Board parent, char[][] board) {
+		super();
+		this.depth = depth;
+		this.parent = parent;
+		this.board = board;
+	}
+    
+	public int getDepth() {
+		return depth;
+	}
+
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+
+	public int getHeuristicCost() {
+		return heuristicCost;
+	}
+
+	public void setHeuristicCost(int heuristicCost) {
+		this.heuristicCost = heuristicCost;
+	}
+
+	public Board getParent() {
+		return parent;
+	}
+
+	public void setParent(Board parent) {
+		this.parent = parent;
+	}
+
+	public char[][] getBoard() {
 		return board;
 	}
 
@@ -98,7 +134,7 @@ public class Board {
     }
     
 
-    public void makeMove(Move move) {
+    public Board makeMove(Move move) {
         char[][] array = this.getBoard();
     	for(int x = 0; x < move.getAffectedTiles().size(); x++) {
     		if(array[move.getAffectedTiles().get(x).getRow()][move.getAffectedTiles().get(x).getCol()] == 'g') {
@@ -114,6 +150,7 @@ public class Board {
     		}
     	}
     	this.setBoard(array);
+    	return this;
     }
     
     public ArrayList<Move> getPossibleMoves(char turnColor, char waitColor){
