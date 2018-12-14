@@ -170,9 +170,9 @@ public class Hexed {
 
 		for(int x = 0; x < tempFrontier.size(); x++) { //set heuristic costs of items in the populated frontier
 			if (turnColor == 'r') {
-				tempFrontier.get(x).setHeuristicCost(tempFrontier.get(x).playerChipsCounter('r') - tempFrontier.get(x).playerChipsCounter('g'));
+				tempFrontier.get(x).setEvaluation(tempFrontier.get(x).playerChipsCounter('r') - tempFrontier.get(x).playerChipsCounter('g'));
 			} else if (turnColor == 'g') {
-				tempFrontier.get(x).setHeuristicCost(tempFrontier.get(x).playerChipsCounter('g') - tempFrontier.get(x).playerChipsCounter('r'));
+				tempFrontier.get(x).setEvaluation(tempFrontier.get(x).playerChipsCounter('g') - tempFrontier.get(x).playerChipsCounter('r'));
 			}
 		}
 		
@@ -189,18 +189,18 @@ public class Hexed {
 				tempList.clear();
 				tempBoard = tempFrontier.remove(0);
 				parent.add(tempBoard.getParent());
-				int heuristic = tempBoard.getHeuristicCost();
+				int heuristic = tempBoard.getEvaluation();
 				while(!(tempFrontier.isEmpty())) {
 					if (tempBoard.getParent().equals(tempFrontier.get(0).getParent())) {
 						if(x % 2 == 0) {
-							if(heuristic < tempFrontier.get(0).getHeuristicCost()) {
-								heuristic = tempFrontier.remove(0).getHeuristicCost();
+							if(heuristic < tempFrontier.get(0).getEvaluation()) {
+								heuristic = tempFrontier.remove(0).getEvaluation();
 							} else {
 								tempFrontier.remove(0);
 							}
 						} else {
-							if(heuristic > tempFrontier.get(0).getHeuristicCost()) {
-								heuristic = tempFrontier.remove(0).getHeuristicCost();
+							if(heuristic > tempFrontier.get(0).getEvaluation()) {
+								heuristic = tempFrontier.remove(0).getEvaluation();
 							} else {
 								tempFrontier.remove(0);
 							}
@@ -210,7 +210,7 @@ public class Hexed {
 					}
 					
 				} //already got heuristic cost for one parent
-				parent.get(y).setHeuristicCost(heuristic);
+				parent.get(y).setEvaluation(heuristic);
 				y++;
 			} while(!(tempList.isEmpty())); //got all the states at previous depth
 	        System.out.print(".");
@@ -228,11 +228,11 @@ public class Hexed {
 			Move tempM = possibleMoves.remove(0);
 			if(!(parent.isEmpty())){
 				for(int y = 0; y < count-1; y++) {
-					if (tempB.getHeuristicCost() > parent.get(y).getHeuristicCost()) {
+					if (tempB.getEvaluation() > parent.get(y).getEvaluation()) {
 						suggestedMove = possibleMoves.get(y).clone();
-					} else if(tempB.getHeuristicCost() < parent.get(y).getHeuristicCost()){
+					} else if(tempB.getEvaluation() < parent.get(y).getEvaluation()){
 						suggestedMove = tempM.clone();
-					} else if((tempB.getHeuristicCost() == parent.get(y).getHeuristicCost()) && !(tempB.equals(parent.get(y))) ){
+					} else if((tempB.getEvaluation() == parent.get(y).getEvaluation()) && !(tempB.equals(parent.get(y))) ){
 						suggestedMove = tempM.clone();
 						listMove.add(suggestedMove);
 					}
@@ -253,7 +253,7 @@ public class Hexed {
 		Move lastMove = new Move();
 		if (!(listMove.isEmpty())) {
 			for(int x = 0; x < listMove.size(); x++) {
-				if (convertToBoard(suggestedMove, board, turnColor).getHeuristicCost() > convertToBoard(listMove.get(x), board, turnColor).getHeuristicCost()) {
+				if (convertToBoard(suggestedMove, board, turnColor).getEvaluation() > convertToBoard(listMove.get(x), board, turnColor).getEvaluation()) {
 					lastMove = listMove.get(x).clone();
 				} else {
 					lastMove = suggestedMove.clone();
@@ -287,9 +287,9 @@ public class Hexed {
 		newBoard = board.clone();
 		newBoard.makeMove(possibleMove);
 		if (turnColor == 'r') {
-			newBoard.setHeuristicCost(newBoard.playerChipsCounter('r') - newBoard.playerChipsCounter('g'));
+			newBoard.setEvaluation(newBoard.playerChipsCounter('r') - newBoard.playerChipsCounter('g'));
 		} else if (turnColor == 'g') {
-			newBoard.setHeuristicCost(newBoard.playerChipsCounter('g') - newBoard.playerChipsCounter('r'));
+			newBoard.setEvaluation(newBoard.playerChipsCounter('g') - newBoard.playerChipsCounter('r'));
 		}
 		return newBoard;
 	}

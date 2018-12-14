@@ -3,7 +3,7 @@ import java.util.HashSet;
 
 public class Board {
 	int depth;
-	int heuristicCost;
+	int evaluation;
 	Board parent;
     char[][] board;
     
@@ -24,7 +24,7 @@ public class Board {
     public Board clone() {
     	Board b = new Board();
     	b.depth = this.depth;
-    	b.heuristicCost = this.heuristicCost;
+    	b.evaluation = this.evaluation;
     	if(this.parent == null) {
         	b.parent = null;
     	}else {
@@ -46,12 +46,12 @@ public class Board {
 		this.depth = depth;
 	}
 
-	public int getHeuristicCost() {
-		return heuristicCost;
+	public int getEvaluation() {
+		return evaluation;
 	}
 
-	public void setHeuristicCost(int heuristicCost) {
-		this.heuristicCost = heuristicCost;
+	public void setEvaluation(int heuristicCost) {
+		this.evaluation = heuristicCost;
 	}
 
 	public Board getParent() {
