@@ -10,7 +10,7 @@ public class Board {
     public Board() {
         this.depth = 0;
         this.parent = null;
-        this.board = null;
+        this.board = new char[7][9];
     }
     
     public Board(int depth, Board parent, char[][] board) {
@@ -19,6 +19,24 @@ public class Board {
 		this.parent = parent;
 		this.board = board;
 	}
+    
+    @Override
+    public Board clone() {
+    	Board b = new Board();
+    	b.depth = this.depth;
+    	b.heuristicCost = this.heuristicCost;
+    	if(this.parent == null) {
+        	b.parent = null;
+    	}else {
+        	b.parent = this.parent.clone();
+    	}
+    	for(int x=0; x < this.board.length; x++) {
+        	for(int y=0; y < this.board[x].length; y++) {
+        		b.board[x][y] = this.board[x][y];
+        	}
+    	}
+    	return b;
+    }
     
 	public int getDepth() {
 		return depth;
@@ -51,6 +69,21 @@ public class Board {
 	public void setBoard(char[][] board) {
 		this.board = board;
 	}
+	
+
+    public boolean equals(Board other) {
+    	boolean result = false;
+    	for(int x = 0; x < this.board.length; x++) {
+        	for(int y = 0; y < this.board[x].length; y++) {
+            	if(this.board[x][y] == other.getBoard()[x][y]) {
+            		result =  true;
+            	} else {
+            		return false;
+            	}
+        	}
+    	}
+    	return result;
+    }
 
 	public void showBoard() {
         System.out.println("["+board[6][0]+"]   ["+board[6][2]+"]   ["+board[6][4]+"]   ["+board[6][6]+"]   ["+board[6][8]+"]");
@@ -106,33 +139,17 @@ public class Board {
         return res;
     }
     
-    public ArrayList<Chip> playerRedChips() {
-        ArrayList<Chip> chips = new ArrayList<Chip>();
-        
+    public int playerChipsCounter(char color) {
+        int chips = 0;
         for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < board[i].length; j++) {
-                if('r' != board[i][j] && board[i][j] != ' ') {
-                    chips.add(new Chip(i, j, 'r'));
-                }
-            }
-        }
-        
-        return chips;
-    }
-    
-    public ArrayList<Chip> playerGreenChips() {
-        ArrayList<Chip> chips = new ArrayList<Chip>();
-        
-        for(int i = 0; i < board.length; i++) {
-            for(int j = 0; j < board[i].length; j++) {
-                if('g' != board[i][j] && board[i][j] != ' ') {
-                    chips.add(new Chip(i, j, 'g'));
+                if(board[i][j] == color) {
+                    chips++;
                 }
             }
         }
         return chips;
     }
-    
 
     public Board makeMove(Move move) {
         char[][] array = this.getBoard();

@@ -15,6 +15,14 @@ public class Chip {
         this.color = color;
     }
     
+    public Chip clone() {
+    	Chip c = new Chip();
+    	c.row = this.row;
+    	c.col = this.col;
+    	c.color = this.color;
+    	return c;
+    }
+    
     public void setRow(int row) {
         this.row = row;
     }

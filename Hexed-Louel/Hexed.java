@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Hexed {
+    Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         try {
             Hexed test = new Hexed();
@@ -14,8 +15,6 @@ public class Hexed {
     public void run() {
         char[][] array = new char[7][9];
         Board board = new Board(0, null, array);
-        
-        Scanner sc = new Scanner(System.in);
         System.out.println("--------Hexed Helper--------");
         System.out.print("Enter Starting Column: ");
         int col = sc.nextInt();
@@ -60,9 +59,12 @@ public class Hexed {
                 }
                 System.out.println("---------------------------");
                 if (ourTeam == turnTeam) {
-                	suggestMove(possibleMoves, board, turnColor, waitColor);
+                    System.out.println("      Suggested Move");
+                    System.out.println("---------------------------");
+                	Move suggestedMove = suggestMove(possibleMoves, board, turnColor, waitColor);
+                	System.out.println("Row: "+ (suggestedMove.getTile().getRow()+1) + "; Column: "+ suggestedMove.getTile().getCol());
+                    System.out.println("---------------------------");
                 }
-                System.out.println("---------------------------");
                 System.out.print("Enter Move: ");
             	choice = sc.nextInt();
             	board.makeMove(possibleMoves.get(choice));
@@ -79,6 +81,10 @@ public class Hexed {
             } else {
                 System.out.println("           HEXED");
                 System.out.println("---------------------------");
+                System.out.println("Press Enter to Continue...");
+                sc.nextLine();
+                sc.nextLine();
+                System.out.println();
             	if(turnTeam == 1) {
             		turnColor = teamTwoColor;
             		waitColor = teamOneColor;
@@ -101,44 +107,190 @@ public class Hexed {
         System.out.println("-----------Board-----------");
         board.showBoard();
         System.out.println("---------------------------");
-        int g = board.playerGreenChips().size();
-        int r = board.playerRedChips().size();
+        int g = board.playerChipsCounter('g');
+        int r = board.playerChipsCounter('r');
         System.out.printf("Green Chips: %d%nRed Chips: %d%n",g,r);
         System.out.println("---------------------------");
+        System.out.println("Press Enter to Continue...");
+        sc.nextLine();
+        sc.nextLine();
         System.out.println();
 	}
 
-	private void suggestMove(ArrayList<Move> possibleMoves, Board board, char turnColor, char waitColor) {
+	private Move suggestMove(ArrayList<Move> possibleMoves, Board board, char turnColor, char waitColor) {
 		ArrayList<Board> frontier = new ArrayList<Board>();
 		frontier.addAll(convertToBoard(possibleMoves, board));
-		int counter = 5;
-		int size = frontier.size();
-		for(int x = 0; x < counter; x++) {
-			for(int y = 0; y < size; y++) {
-				if(x % 2 == 0) {
-					frontier.addAll(convertToBoard(frontier.get(y).getPossibleMoves(waitColor, turnColor), frontier.remove(y)));
-				} else {
-					frontier.addAll(convertToBoard(frontier.get(y).getPossibleMoves(turnColor, waitColor), frontier.remove(y)));
+		ArrayList<Board> tempFrontier = new ArrayList<Board>();
+		int counter = 6;
+		boolean notLevel = false;
+        System.out.print("Loading");
+		do{
+			notLevel = false;
+			for(int x = 0; x < frontier.size(); x++) {
+				tempFrontier.add(frontier.get(x).clone());
+			}
+			for(int x = 0; x < counter; x++) { //Populate frontier with the successors at depth 6 (counter)
+				int size = tempFrontier.size();
+				int y = 0;
+				while(y < size){
+					ArrayList<Move> temp = new ArrayList<Move>();
+					if(x % 2 == 0) {
+						temp = tempFrontier.get(y).getPossibleMoves(waitColor, turnColor);
+						if(temp != null) {
+							tempFrontier.addAll(convertToBoard(temp, tempFrontier.get(y)));
+						} else {
+							counter = x;
+							notLevel = true;
+							break;
+						}
+					} else {
+						temp = tempFrontier.get(y).getPossibleMoves(turnColor, waitColor);
+						if(temp != null) {
+							tempFrontier.addAll(convertToBoard(temp, tempFrontier.get(y)));
+						} else {
+							counter = x;
+							notLevel = true;
+							break;
+						}
+					}
+					y++;
 				}
+				if(notLevel == true) {
+					tempFrontier.clear();
+					break;
+				}
+				for(int z = 0; z < y; z++) {
+					tempFrontier.remove(0);
+				}
+			}
+	        System.out.print(".");
+		} while (notLevel == true);
+		
+		
+
+		for(int x = 0; x < tempFrontier.size(); x++) { //set heuristic costs of items in the populated frontier
+			if (turnColor == 'r') {
+				tempFrontier.get(x).setHeuristicCost(tempFrontier.get(x).playerChipsCounter('r') - tempFrontier.get(x).playerChipsCounter('g'));
+			} else if (turnColor == 'g') {
+				tempFrontier.get(x).setHeuristicCost(tempFrontier.get(x).playerChipsCounter('g') - tempFrontier.get(x).playerChipsCounter('r'));
 			}
 		}
 		
-		for (int x = counter; x > 0; x--) {
-			
+		ArrayList<Board> tempList = new ArrayList<Board>();
+		ArrayList<Board> parent = new ArrayList<Board>();
+		Board tempBoard = new Board();
+
+		for (int x = counter; x > 0; x--) { //Apply min-max algorithm
+			tempFrontier.addAll(parent);
+			parent.clear();
+			int y = 0;
+			do {
+				tempFrontier.addAll(tempList);
+				tempList.clear();
+				tempBoard = tempFrontier.remove(0);
+				parent.add(tempBoard.getParent());
+				int heuristic = tempBoard.getHeuristicCost();
+				while(!(tempFrontier.isEmpty())) {
+					if (tempBoard.getParent().equals(tempFrontier.get(0).getParent())) {
+						if(x % 2 == 0) {
+							if(heuristic < tempFrontier.get(0).getHeuristicCost()) {
+								heuristic = tempFrontier.remove(0).getHeuristicCost();
+							} else {
+								tempFrontier.remove(0);
+							}
+						} else {
+							if(heuristic > tempFrontier.get(0).getHeuristicCost()) {
+								heuristic = tempFrontier.remove(0).getHeuristicCost();
+							} else {
+								tempFrontier.remove(0);
+							}
+						}
+					} else {
+						tempList.add(tempFrontier.remove(0));
+					}
+					
+				} //already got heuristic cost for one parent
+				parent.get(y).setHeuristicCost(heuristic);
+				y++;
+			} while(!(tempList.isEmpty())); //got all the states at previous depth
+	        System.out.print(".");
+		}
+        System.out.println();
+        System.out.println("---------------------------");
+
+		System.out.println("parent size: " + parent.size());
+		
+		Move suggestedMove = new Move();
+		ArrayList<Move> listMove = new ArrayList<Move>();
+		int count = parent.size();
+		 while (count > 0){
+			Board tempB = parent.remove(0);
+			Move tempM = possibleMoves.remove(0);
+			if(!(parent.isEmpty())){
+				for(int y = 0; y < count-1; y++) {
+					if (tempB.getHeuristicCost() > parent.get(y).getHeuristicCost()) {
+						suggestedMove = possibleMoves.get(y).clone();
+					} else if(tempB.getHeuristicCost() < parent.get(y).getHeuristicCost()){
+						suggestedMove = tempM.clone();
+					} else if((tempB.getHeuristicCost() == parent.get(y).getHeuristicCost()) && !(tempB.equals(parent.get(y))) ){
+						suggestedMove = tempM.clone();
+						listMove.add(suggestedMove);
+					}
+				}
+				parent.add(tempB);
+				possibleMoves.add(tempM);
+				count--;
+			}else {
+				suggestedMove = tempM.clone();
+				parent.add(tempB);
+				possibleMoves.add(tempM);
+				count--;
+				break;
+			}
+		}
+		System.out.println("listMove size: " + listMove.size());
+		 
+		Move lastMove = new Move();
+		if (!(listMove.isEmpty())) {
+			for(int x = 0; x < listMove.size(); x++) {
+				if (convertToBoard(suggestedMove, board, turnColor).getHeuristicCost() > convertToBoard(listMove.get(x), board, turnColor).getHeuristicCost()) {
+					lastMove = listMove.get(x).clone();
+				} else {
+					lastMove = suggestedMove.clone();
+				}
+			}
+
+	        System.out.println("---------------------------");
+			return lastMove;
+		} else {
+
+	        System.out.println("---------------------------");
+			return suggestedMove;
 		}
 	}
 	
 	private ArrayList<Board> convertToBoard(ArrayList<Move> possibleMoves, Board board) {
 		ArrayList<Board> listBoard = new ArrayList<Board>();
 		Board newBoard = new Board();
-		newBoard.setDepth(board.getDepth()+1);
-		newBoard.setParent(board);
-		newBoard.setBoard(board.getBoard());
 		
 		for(int x = 0; x < possibleMoves.size(); x++) {
-			newBoard.setBoard(board.getBoard());
-			listBoard.add(newBoard.makeMove(possibleMoves.get(x)));
+			newBoard = board.clone();
+			newBoard.setDepth(board.getDepth()+1);
+			newBoard.setParent(board);
+			listBoard.add(newBoard.makeMove(possibleMoves.get(x)).clone());
 		}
 		return listBoard;
+	}
+	
+	private Board convertToBoard(Move possibleMove, Board board, char turnColor) {
+		Board newBoard = new Board();
+		newBoard = board.clone();
+		newBoard.makeMove(possibleMove);
+		if (turnColor == 'r') {
+			newBoard.setHeuristicCost(newBoard.playerChipsCounter('r') - newBoard.playerChipsCounter('g'));
+		} else if (turnColor == 'g') {
+			newBoard.setHeuristicCost(newBoard.playerChipsCounter('g') - newBoard.playerChipsCounter('r'));
+		}
+		return newBoard;
 	}
 }
